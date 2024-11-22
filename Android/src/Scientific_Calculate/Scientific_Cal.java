@@ -24,6 +24,7 @@ public class Scientific_Cal extends javax.swing.JFrame {
     private Object math;
     public Scientific_Cal() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
