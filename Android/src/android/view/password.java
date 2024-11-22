@@ -46,7 +46,7 @@ public class password extends javax.swing.JFrame {
         jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 300, 50));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/android/view/bg-1.jpg"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/android/assets/bg-1.jpg"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 640));
 
         pack();
