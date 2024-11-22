@@ -10,12 +10,11 @@ public class data {
     private final String password;
     private final String alamat;
     private final String tanggalLahir;
-    private final Timestamp createdAt;
 
 
     // Constructor
     public data(
-            int id, String namaDepan, String namaBelakang, String username, String password, String alamat, String tanggalLahir, Timestamp createdAt) {
+            int id, String namaDepan, String namaBelakang, String username, String password, String alamat, String tanggalLahir) {
         this.id = id;
         this.namaDepan = namaDepan;
         this.namaBelakang = namaBelakang;
@@ -23,7 +22,6 @@ public class data {
         this.password = password;
         this.alamat = alamat;
         this.tanggalLahir = tanggalLahir;
-        this.createdAt = createdAt;
     }
 
     // Getter methods
@@ -53,9 +51,5 @@ public class data {
 
     public String getTanggalLahir() {
         return tanggalLahir;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
     }
 }

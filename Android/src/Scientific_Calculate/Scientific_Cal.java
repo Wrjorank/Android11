@@ -425,7 +425,7 @@ public class Scientific_Cal extends javax.swing.JFrame {
         s2.setForeground(new java.awt.Color(51, 0, 51));
 
         jButton3.setBackground(new java.awt.Color(242, 242, 242));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Scientific_Calculate/home (1).png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/android/assets/home (1).png"))); // NOI18N
         jButton3.setBorderPainted(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
