@@ -390,19 +390,20 @@ public class RegisterForm extends javax.swing.JFrame {
 //    }
 
     // Koneksi ke database
-    String url = "jdbc:mysql://localhost:3306/proyek_register"; // Nama database
+    String url = "jdbc:mariadb://localhost:3306/proyek_register"; // Nama database
     String user = "root"; // Sesuaikan dengan username database Anda
     String pass = "";     // Sesuaikan dengan password database Anda
 
     try (Connection conn = DriverManager.getConnection(url, user, pass)) {
         // Query SQL untuk memasukkan data
-        String sql = "INSERT INTO register (nama_depan, nama_belakang, username, password, tanggal_lahir) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO register (namaDepan, namaBelakang, username, password, alamat, tanggalLahir) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, namaDepan);
             stmt.setString(2, namaBelakang);
             stmt.setString(3, username);
             stmt.setString(4, password); // Hindari menyimpan password langsung (gunakan hashing untuk produksi)
-            stmt.setString(5, tanggalLahir);
+            stmt.setString(5, alamat);
+            stmt.setString(6, tanggalLahir);
 
             // Eksekusi query
             int rowsInserted = stmt.executeUpdate();

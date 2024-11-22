@@ -4,7 +4,9 @@
  */
 package android.view;
 
+import android.model.RegisterModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -121,6 +123,11 @@ public class LoginForm extends javax.swing.JFrame {
         jButton_login.setBackground(new java.awt.Color(51, 204, 255));
         jButton_login.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton_login.setText("Login");
+        jButton_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_loginActionPerformed(evt);
+            }
+        });
 
         jButton_cancel.setBackground(new java.awt.Color(255, 0, 0));
         jButton_cancel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -243,13 +250,33 @@ public class LoginForm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabel11MouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
-        
-        //buat dan buka frame Calculator
-        viewAwal viewawal = new viewAwal();
-        viewawal.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_loginActionPerformed
+         // Get the username and password entered by the user
+    String username = jTextField_username.getText();  // Assuming jTextField_username is the input field for the username
+    String password = new String(jPasswordField_password.getPassword());  // Assuming jPasswordField_password is the input field for the password
+    
+    // Check if username and password are empty
+    if (username.isEmpty() || password.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Username and Password cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Validate the credentials by calling the method in RegisterModel
+    boolean isValidUser = RegisterModel.validateLogin(username, password);
+
+    if (isValidUser) {
+        // If login is successful, open the next screen (main application form or user dashboard)
+        JOptionPane.showMessageDialog(this, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        // Navigate to the next screen or form (for example)
+        // new MainForm().setVisible(true);
+        // This will close the login form (if needed)
+        // this.dispose();
+    } else {
+        // If login is unsuccessful, show error message
+        JOptionPane.showMessageDialog(this, "Invalid Username or Password.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_jButton_loginActionPerformed
 
     /**
      * @param args the command line arguments
