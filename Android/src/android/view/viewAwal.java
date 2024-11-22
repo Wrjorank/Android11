@@ -214,7 +214,12 @@ public class viewAwal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void fastaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fastaBtnActionPerformed
-        // TODO add your handling code here:
+        // tutup frame saat ini
+        this.dispose();
+        
+        //buat dan buka frame Calculator
+        LoginForm login = new LoginForm();
+        login.setVisible(true);
     }//GEN-LAST:event_fastaBtnActionPerformed
 
     private void calculatorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculatorBtnActionPerformed
