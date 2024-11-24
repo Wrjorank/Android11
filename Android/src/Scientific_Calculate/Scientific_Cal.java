@@ -5,6 +5,7 @@
  */
 package Scientific_Calculate;
 
+import android.view.AndroidView;
 import android.view.viewAwal;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -1061,8 +1062,8 @@ public class Scientific_Cal extends javax.swing.JFrame {
         this.dispose();
         
         //buat dan buka frame Calculator
-        viewAwal viewawal = new viewAwal();
-        viewawal.setVisible(true);
+        AndroidView androidView = new AndroidView();
+        androidView.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

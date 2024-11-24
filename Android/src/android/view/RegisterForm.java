@@ -22,6 +22,8 @@ public class RegisterForm extends javax.swing.JFrame {
     public RegisterForm() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setFocusable(true);
+        this.requestFocusInWindow();
     }
 
     /**
@@ -135,10 +137,17 @@ public class RegisterForm extends javax.swing.JFrame {
         jButton_cancel.setBackground(new java.awt.Color(255, 0, 0));
         jButton_cancel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton_cancel.setText("Cancel");
+        jButton_cancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_cancelActionPerformed(evt);
+            }
+        });
 
         jButton_create.setBackground(new java.awt.Color(51, 204, 255));
         jButton_create.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton_create.setText("Create");
+        jButton_create.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_create.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton_createMouseClicked(evt);
@@ -206,10 +215,18 @@ public class RegisterForm extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel11MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel11MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel11MouseExited(evt);
+            }
         });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/android/assets/home (1).png"))); // NOI18N
         jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -221,50 +238,25 @@ public class RegisterForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPasswordField_password1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField_username, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField_namadepan, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField_namabelakang, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(18, 18, 18))
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addGap(18, 18, 18)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton_cancel)
-                            .addGap(49, 49, 49)
-                            .addComponent(jButton_create)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_tanggallahir, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPasswordField_ulangi, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton_cancel)
+                        .addGap(49, 49, 49)
+                        .addComponent(jButton_create)
+                        .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel11)
@@ -273,6 +265,29 @@ public class RegisterForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(138, 138, 138))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField_username, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                                .addComponent(jTextField_namadepan, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField_namabelakang, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPasswordField_ulangi, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPasswordField_password1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_tanggallahir, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,8 +309,8 @@ public class RegisterForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPasswordField_password1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPasswordField_ulangi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -369,61 +384,104 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_tanggallahirMouseClicked
 
     private void jButton_createMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_createMouseClicked
-         // Ambil data dari form
-    String namaDepan = jTextField_namadepan.getText();
-    String namaBelakang = jTextField_namabelakang.getText();
-    String username = jTextField_username.getText();
-    String password = new String(jPasswordField_password1.getPassword());
-//    String ulangiPassword = new String(jPasswordField_ulangi.getPassword());
-    String tanggalLahir = jTextField_tanggallahir.getText();
-    String alamat = jTextArea_alamat.getText();
+            // Ambil data dari form
+        String namaDepan = jTextField_namadepan.getText();
+        String namaBelakang = jTextField_namabelakang.getText();
+        String username = jTextField_username.getText();
+        String password = new String(jPasswordField_password1.getPassword());
+        String ulangiPassword = new String(jPasswordField_ulangi.getPassword());
+        String tanggalLahir = jTextField_tanggallahir.getText();
+        String alamat = jTextArea_alamat.getText();
 
-    // Validasi input
-    if (namaDepan.isEmpty() || namaBelakang.isEmpty() || username.isEmpty() || password.isEmpty() || tanggalLahir.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Semua field harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-//    if (!password.equals(ulangiPassword)) {
-//        JOptionPane.showMessageDialog(this, "Password dan Ulangi Password tidak cocok!", "Error", JOptionPane.ERROR_MESSAGE);
-//        return;
-//    }
-
-    // Koneksi ke database
-    String url = "jdbc:mariadb://localhost:3306/proyek_register"; // Nama database
-    String user = "root"; // Sesuaikan dengan username database Anda
-    String pass = "";     // Sesuaikan dengan password database Anda
-
-    try (Connection conn = DriverManager.getConnection(url, user, pass)) {
-        // Query SQL untuk memasukkan data
-        String sql = "INSERT INTO register (namaDepan, namaBelakang, username, password, alamat, tanggalLahir) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, namaDepan);
-            stmt.setString(2, namaBelakang);
-            stmt.setString(3, username);
-            stmt.setString(4, password); // Hindari menyimpan password langsung (gunakan hashing untuk produksi)
-            stmt.setString(5, alamat);
-            stmt.setString(6, tanggalLahir);
-
-            // Eksekusi query
-            int rowsInserted = stmt.executeUpdate();
-            if (rowsInserted > 0) {
-                JOptionPane.showMessageDialog(this, "Data berhasil disimpan!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-            }
+        // Validasi input
+        if (namaDepan.isEmpty() || namaBelakang.isEmpty() || username.isEmpty() || password.isEmpty() || tanggalLahir.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua field harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
+
+        // Validasi apakah password dan ulangi password cocok
+        if (!password.equals(ulangiPassword)) {
+            JOptionPane.showMessageDialog(this, "Password tidak identik!", "Error", JOptionPane.ERROR_MESSAGE);
+            jPasswordField_password1.setText("");
+            jPasswordField_ulangi.setText("");
+            return;
+        }
+
+        // Koneksi ke database
+        String url = "jdbc:mariadb://localhost:3306/proyek_register"; // Nama database
+        String user = "root"; // Sesuaikan dengan username database Anda
+        String pass = "";     // Sesuaikan dengan password database Anda
+
+        try (Connection conn = DriverManager.getConnection(url, user, pass)) {
+            // Periksa apakah username sudah ada
+            String checkSql = "SELECT COUNT(*) FROM register WHERE username = ?";
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+                checkStmt.setString(1, username);
+
+                // Eksekusi query dan langsung mendapatkan hasil
+                int count = checkStmt.executeQuery().next() ? checkStmt.getResultSet().getInt(1) : 0;
+
+                if (count > 0) {
+                    JOptionPane.showMessageDialog(this, "Username sudah digunakan!", "Error", JOptionPane.ERROR_MESSAGE);
+                    jTextField_username.setText("");
+                    return; // Hentikan proses jika username sudah ada
+                }
+            }
+
+            // Query SQL untuk memasukkan data
+            String sql = "INSERT INTO register (namaDepan, namaBelakang, username, password, alamat, tanggalLahir) VALUES (?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, namaDepan);
+                stmt.setString(2, namaBelakang);
+                stmt.setString(3, username);
+                stmt.setString(4, password); // Hindari menyimpan password langsung (gunakan hashing untuk produksi)
+                stmt.setString(5, alamat);
+                stmt.setString(6, tanggalLahir);
+
+                // Eksekusi query
+                int rowsInserted = stmt.executeUpdate();
+                if (rowsInserted > 0) {
+                    JOptionPane.showMessageDialog(this, "Data berhasil disimpan!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                    
+                // tutup frame saat ini
+                this.dispose();
+                //buat dan buka frame Calculator
+                LoginForm login = new LoginForm();
+                login.setVisible(true);              
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_jButton_createMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
         
         //buat dan buka frame Calculator
-        viewAwal viewawal = new viewAwal();
-        viewawal.setVisible(true);
+        AndroidView androidView = new AndroidView();
+        androidView.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseEntered
+        jLabel11.setForeground(java.awt.Color.BLUE);
+    }//GEN-LAST:event_jLabel11MouseEntered
+
+    private void jLabel11MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseExited
+        jLabel11.setForeground(java.awt.Color.BLACK);
+    }//GEN-LAST:event_jLabel11MouseExited
+
+    private void jButton_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_cancelActionPerformed
+        jTextField_namadepan.setText("");
+        jTextField_namabelakang.setText("");
+        jTextField_username.setText("");
+        jPasswordField_password1.setText("");
+        jPasswordField_ulangi.setText("");
+        jTextField_tanggallahir.setText("");
+        jTextArea_alamat.setText("");
+    }//GEN-LAST:event_jButton_cancelActionPerformed
 
     /**
      * @param args the command line arguments

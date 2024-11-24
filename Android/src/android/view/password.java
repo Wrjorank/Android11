@@ -16,6 +16,8 @@ public class password extends javax.swing.JFrame {
     public password() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setFocusable(true);
+        this.requestFocusInWindow();
     }
 
     /**
@@ -35,6 +37,7 @@ public class password extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         okBtn.setText("OK");
+        okBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         okBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okBtnActionPerformed(evt);
@@ -63,8 +66,8 @@ public class password extends javax.swing.JFrame {
         this.dispose();
 
         // Buat dan buka frame viewAwal
-        viewAwal viewawal = new viewAwal();
-        viewawal.setVisible(true);
+        AndroidView androidView = new AndroidView();
+        androidView.setVisible(true);
     } else {
         // Tampilkan pesan kesalahan jika password salah
         javax.swing.JOptionPane.showMessageDialog(this, "Password salah!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
