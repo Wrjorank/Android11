@@ -4,7 +4,9 @@
  */
 package android.view;
 
+import java.awt.Color;
 import java.awt.KeyboardFocusManager;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -52,6 +54,8 @@ public class SellingPanel extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         stok_produk = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
+        jButton_tambah = new javax.swing.JButton();
+        jButton_kurang = new javax.swing.JButton();
 
         jLabel6.setText("Nama Produk");
 
@@ -62,12 +66,19 @@ public class SellingPanel extends javax.swing.JFrame {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/android/assets/home (1).png"))); // NOI18N
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(51, 153, 255));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/android/assets/sell.png"))); // NOI18N
         jButton3.setBorderPainted(false);
         jButton3.setContentAreaFilled(false);
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -77,6 +88,7 @@ public class SellingPanel extends javax.swing.JFrame {
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/android/assets/shoppingbag_v2.png"))); // NOI18N
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -86,6 +98,12 @@ public class SellingPanel extends javax.swing.JFrame {
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/android/assets/user_icon.png"))); // NOI18N
         jButton4.setBorderPainted(false);
         jButton4.setContentAreaFilled(false);
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -96,7 +114,7 @@ public class SellingPanel extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addGap(86, 86, 86)
                 .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addGap(39, 39, 39))
         );
@@ -163,6 +181,11 @@ public class SellingPanel extends javax.swing.JFrame {
         jLabel3.setText("Nama Produk");
 
         nama_produk.setText("Masukkan Nama Produk");
+        nama_produk.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nama_produkFocusLost(evt);
+            }
+        });
         nama_produk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 nama_produkMouseClicked(evt);
@@ -177,6 +200,11 @@ public class SellingPanel extends javax.swing.JFrame {
         jLabel4.setText("Deskripsi Produk");
 
         deskripsi_produk.setText("Masukkan Deskripsi Produk");
+        deskripsi_produk.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                deskripsi_produkFocusLost(evt);
+            }
+        });
         deskripsi_produk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 deskripsi_produkMouseClicked(evt);
@@ -191,6 +219,11 @@ public class SellingPanel extends javax.swing.JFrame {
         jLabel5.setText("Harga");
 
         harga_produk.setText("Atur Harga");
+        harga_produk.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                harga_produkFocusLost(evt);
+            }
+        });
         harga_produk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 harga_produkMouseClicked(evt);
@@ -205,6 +238,11 @@ public class SellingPanel extends javax.swing.JFrame {
         jLabel7.setText("Stok");
 
         stok_produk.setText("0");
+        stok_produk.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                stok_produkFocusLost(evt);
+            }
+        });
         stok_produk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 stok_produkMouseClicked(evt);
@@ -218,6 +256,27 @@ public class SellingPanel extends javax.swing.JFrame {
 
         jButton5.setText("Simpan");
         jButton5.setToolTipText("");
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jButton_tambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/android/assets/tambah_icon.png"))); // NOI18N
+        jButton_tambah.setBorderPainted(false);
+        jButton_tambah.setContentAreaFilled(false);
+        jButton_tambah.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_tambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_tambahActionPerformed(evt);
+            }
+        });
+
+        jButton_kurang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/android/assets/kurang_icon.png"))); // NOI18N
+        jButton_kurang.setBorderPainted(false);
+        jButton_kurang.setContentAreaFilled(false);
+        jButton_kurang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_kurang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_kurangActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -230,21 +289,27 @@ public class SellingPanel extends javax.swing.JFrame {
                 .addGap(155, 155, 155))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(stok_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(harga_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deskripsi_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nama_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nama_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(stok_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton_tambah)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton_kurang)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,11 +327,19 @@ public class SellingPanel extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(harga_produk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(stok_produk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(stok_produk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton_kurang)
+                            .addComponent(jButton_tambah))
+                        .addGap(187, 187, 187)))
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -321,13 +394,92 @@ public class SellingPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_deskripsi_produkMouseClicked
 
     private void harga_produkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_harga_produkMouseClicked
-        harga_produk.setText("");
+        harga_produk.setText("Rp ");
     }//GEN-LAST:event_harga_produkMouseClicked
 
     private void stok_produkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stok_produkMouseClicked
         stok_produk.setText("");
     }//GEN-LAST:event_stok_produkMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+        
+        AndroidView androidView = new AndroidView();
+        androidView.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void nama_produkFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nama_produkFocusLost
+        if (nama_produk.getText().isEmpty()) {
+        nama_produk.setText("Masukkan Nama Produk"); // Kembalikan teks placeholder
+    }
+    }//GEN-LAST:event_nama_produkFocusLost
+
+    private void deskripsi_produkFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_deskripsi_produkFocusLost
+        if (deskripsi_produk.getText().isEmpty()) {
+        deskripsi_produk.setText("Masukkan Deskripsi Produk"); // Kembalikan teks placeholder
+    }
+    }//GEN-LAST:event_deskripsi_produkFocusLost
+
+    private void harga_produkFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_harga_produkFocusLost
+        if (harga_produk.getText().isEmpty()) {
+        harga_produk.setText("Atur Harga"); // Kembalikan teks placeholder
+    }
+    }//GEN-LAST:event_harga_produkFocusLost
+
+    private void stok_produkFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stok_produkFocusLost
+        if (stok_produk.getText().isEmpty()) {
+        stok_produk.setText("0"); // Kembalikan teks placeholder
+        }
+    }//GEN-LAST:event_stok_produkFocusLost
+
+    private void jButton_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_tambahActionPerformed
+        try {
+        // Ambil nilai stok dari JTextField
+        int stok = Integer.parseInt(stok_produk.getText());
+        
+        // Tambah 1 pada stok
+        stok += 1;
+
+        // Set nilai baru ke JTextField
+        stok_produk.setText(String.valueOf(stok));
+    } catch (NumberFormatException e) {
+        // Jika stok bukan angka valid, tampilkan pesan error
+        JOptionPane.showMessageDialog(this, "Nilai stok tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_jButton_tambahActionPerformed
+
+    private void jButton_kurangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_kurangActionPerformed
+         try {
+        // Ambil nilai stok dari JTextField
+        int stok = Integer.parseInt(stok_produk.getText());
+        
+        // Kurangi 1 pada stok
+        if (stok > 0) { // Pastikan stok tidak negatif
+            stok -= 1;
+        } else {
+            JOptionPane.showMessageDialog(this, "Stok tidak boleh kurang dari 0!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        // Set nilai baru ke JTextField
+        stok_produk.setText(String.valueOf(stok));
+    } catch (NumberFormatException e) {
+        // Jika stok bukan angka valid, tampilkan pesan error
+        JOptionPane.showMessageDialog(this, "Nilai stok tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_jButton_kurangActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // tutup frame saat ini
+        this.dispose();
+        
+        //buat dan buka frame Calculator
+        AkunPanel akunPanel = new AkunPanel();
+        akunPanel.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -371,6 +523,8 @@ public class SellingPanel extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton_kurang;
+    private javax.swing.JButton jButton_tambah;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
