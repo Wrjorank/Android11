@@ -4,11 +4,50 @@
  */
 package android.repository;
 
+import android.entity.Produk;
+import android.model.ProdukModel;
+import java.util.ArrayList;
+
 
 /**
  *
  * @author Iky
  */
-public class RepoProduk {
+public class RepoProduk implements IRepoProduk{
     
+    @Override
+    public ArrayList<Produk> repoGetAllProduk() {
+        return ProdukModel.getAllProduk("");
+    } 
+    
+    @Override
+    public int repoAddProduk (String namaBarang, double harga, String deskripsi, int stokBarang, int userID) {
+        return ProdukModel.addProduk(namaBarang, harga, deskripsi, stokBarang, userID);
+    } 
+    
+    @Override
+    public boolean repoRemoveProduk(int id) {
+        return ProdukModel.deleteProduk(id);
+    } 
+    
+    @Override
+    public boolean repoUpdateProduk(int id, String namaBarang, double harga, String deskripsi, int stokBarang, int barangTerjual) {
+        return ProdukModel.updateProduk(id, namaBarang, harga, deskripsi, stokBarang, barangTerjual);
+    }
+    
+    @Override
+    public Produk repoGetProdukById(int id) {
+        return ProdukModel.getProdukById(id);
+    } 
+    
+    
+    @Override
+    public ArrayList<Produk> repoSearchProduk(String keywords) {
+        return ProdukModel.getAllProduk(keywords);
+    }
+
+    @Override
+    public int repoGetUserIDByUsername (String username){
+        return ProdukModel.getUserIDByUsername(username);
+    }
 }

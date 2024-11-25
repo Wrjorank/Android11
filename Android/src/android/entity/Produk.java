@@ -13,14 +13,14 @@ import java.sql.Timestamp;
 public class Produk {    
     private final int idBarang;
     private final String namaBarang;
-    private final int harga;
+    private final double harga;
     private final String deskripsi;
     private final int stokBarang;
     private final String username;
     private final int barangTerjual;
 
     
-    public Produk(int idBarang, String namaBarang, int harga, String deskripsi, int stokBarang, String username, int barangTerjual) {
+    public Produk(int idBarang, String namaBarang, double harga, String deskripsi, int stokBarang, String username, int barangTerjual) {
         this.idBarang = idBarang;
         this.namaBarang = namaBarang;
         this.harga = harga;
@@ -38,7 +38,7 @@ public class Produk {
         return namaBarang; 
     }
     
-    public int harga() { 
+    public double harga() { 
         return harga; 
     }
     

@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import static javax.swing.text.html.HTML.Attribute.ID;
 
 /**
  *
@@ -21,12 +22,11 @@ import java.util.ArrayList;
  */
 public class ProdukModel {
 
-    public static int addProduk(String namaBarang, int harga, String deskripsi, int stokBarang) {
-    String query = "INSERT INTO produk (namaBarang, harga, deskripsi, stokBarang) VALUES (?, ?, ?, ?)";
+    public static int addProduk(String namaBarang, double harga, String deskripsi, int stokBarang, int ID) {
+    String query = "INSERT INTO produk (namaBarang, harga, deskripsi, stokBarang, ID) VALUES (?, ?, ?, ?, ?)";
     
     try (java.sql.Connection conn = DBUtil.getConnection();
          PreparedStatement stmt = conn.prepareStatement(query, java.sql.Statement.RETURN_GENERATED_KEYS)) {
-
 
         // Validasi input
         if (harga < 0 || stokBarang < 0) {
@@ -35,9 +35,10 @@ public class ProdukModel {
 
         // Set parameter untuk query
         stmt.setString(1, namaBarang);
-        stmt.setInt(2, harga);
+        stmt.setDouble(2, harga);
         stmt.setString(3, deskripsi);
         stmt.setInt(4, stokBarang);
+        stmt.setInt(5, ID); // Set user ID for foreign key
 
         // Eksekusi query dan cek jumlah baris yang terpengaruh
         int affectedRows = stmt.executeUpdate();
@@ -55,19 +56,32 @@ public class ProdukModel {
         }
 
     } catch (SQLException e) {
-        // Log error untuk debugging
         System.err.println("Error saat menambahkan produk: " + e.getMessage());
         e.printStackTrace();
     } catch (IllegalArgumentException e) {
-        // Log untuk kesalahan validasi
         System.err.println("Input tidak valid: " + e.getMessage());
     }
 
-    // Return -1 jika terjadi error
     return -1;
 }
 
-    
+
+    public static int getUserIDByUsername(String username) {
+    int userID = -1;
+    try (java.sql.Connection conn = DBUtil.getConnection();
+         PreparedStatement stmt = conn.prepareStatement("SELECT id FROM register WHERE username = ?")) {
+        stmt.setString(1, username);
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                userID = rs.getInt("id");
+            }
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+        return userID;
+    }
+
     public static Produk getProdukById(int idBarang) {
     // Query SQL untuk mendapatkan data produk berdasarkan ID
     String query = "SELECT p.ID_produk, p.namaBarang, p.harga, p.deskripsi, " +

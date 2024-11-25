@@ -4,7 +4,7 @@
  */
 package android.view.panel;
 
-import android.repository.IRepoEcommer;
+import android.repository.IRepoProduk;
 
 /**
  *
@@ -12,13 +12,13 @@ import android.repository.IRepoEcommer;
  */
 public class AboutUser extends javax.swing.JPanel {
     
-        private final IRepoEcommer repo;
+        private final IRepoProduk repo;
         private final Runnable callback;
 
     /**
      * Creates new form AboutUser
      */
-    public AboutUser(IRepoEcommer repo, Runnable callback) {
+    public AboutUser(IRepoProduk repo, Runnable callback) {
         System.out.println("AboutUser");
         this.repo = repo;
         this.callback = callback;

@@ -4,20 +4,21 @@
  */
 package android.view.panel;
 
-import android.repository.IRepoEcommer;
+import android.repository.IRepoProduk;
+
 
 /**
  *
  * @author Iky
  */
 public class UserLogin extends javax.swing.JPanel {
-        private final IRepoEcommer repo;
+        private final IRepoProduk repo;
         private final Runnable callback;
 
     /**
      * Creates new form UserLogin
      */
-    public UserLogin(IRepoEcommer repo, Runnable callback) {
+    public UserLogin(IRepoProduk repo, Runnable callback) {
         System.out.println("BuyingPanel");
         this.repo = repo;
         this.callback = callback;

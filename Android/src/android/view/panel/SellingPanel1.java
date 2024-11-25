@@ -4,7 +4,9 @@
  */
 package android.view.panel;
 
-import android.repository.IRepoEcommer;
+import android.model.sessionModel;
+import android.repository.IRepoProduk;
+import android.view.LoginForm;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,18 +15,20 @@ import javax.swing.JOptionPane;
  */
 public class SellingPanel1 extends javax.swing.JPanel {
 
-        private final IRepoEcommer repo;
+        private final IRepoProduk repo1;
         private final Runnable callback;
+       
     /**
      * Creates new form SellingPanel
      */
-    public SellingPanel1(IRepoEcommer repo, Runnable callback) {
+    public SellingPanel1(IRepoProduk repo1, Runnable callback) {
         System.out.println("SellingPanel");
-        this.repo = repo;
+        this.repo1 = repo1;
         this.callback = callback;
-        
+       
         initComponents();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,7 +51,7 @@ public class SellingPanel1 extends javax.swing.JPanel {
         stok_produk = new javax.swing.JTextField();
         jButton_tambah = new javax.swing.JButton();
         jButton_kurang = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        simpanButton = new javax.swing.JButton();
 
         jPanel2.setBackground(new java.awt.Color(51, 153, 255));
 
@@ -166,9 +170,14 @@ public class SellingPanel1 extends javax.swing.JPanel {
             }
         });
 
-        jButton5.setText("Simpan");
-        jButton5.setToolTipText("");
-        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        simpanButton.setText("Simpan");
+        simpanButton.setToolTipText("");
+        simpanButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        simpanButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simpanButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -193,7 +202,7 @@ public class SellingPanel1 extends javax.swing.JPanel {
                             .addComponent(jButton_tambah)
                             .addGap(18, 18, 18)
                             .addComponent(jButton_kurang)))
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(simpanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -224,7 +233,7 @@ public class SellingPanel1 extends javax.swing.JPanel {
                             .addComponent(jButton_kurang)
                             .addComponent(jButton_tambah))))
                 .addGap(64, 64, 64)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(simpanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -264,7 +273,7 @@ public class SellingPanel1 extends javax.swing.JPanel {
     }//GEN-LAST:event_harga_produkFocusLost
 
     private void harga_produkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_harga_produkMouseClicked
-        harga_produk.setText("Rp ");
+        harga_produk.setText("");
     }//GEN-LAST:event_harga_produkMouseClicked
 
     private void harga_produkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_harga_produkActionPerformed
@@ -321,11 +330,112 @@ public class SellingPanel1 extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton_kurangActionPerformed
 
+    
+    private void simpanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanButtonActionPerformed
+        String namaProduk = nama_produk.getText();
+        String deskripsiProduk = deskripsi_produk.getText();
+        String hargaProduk = harga_produk.getText();
+        String stokProduk = stok_produk.getText();
+        
+        if (namaProduk.isBlank()) {
+            JOptionPane.showMessageDialog(this, 
+                "Nama produk tidak boleh kosong!", 
+                "Kesalahan", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (deskripsiProduk.isBlank()) {
+            JOptionPane.showMessageDialog(this, 
+                "Deskripsi produk tidak boleh kosong!", 
+                "Kesalahan", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+       if (hargaProduk.isBlank()) {
+            JOptionPane.showMessageDialog(this, 
+                "Harga produk tidak boleh kosong!", 
+                "Kesalahan", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (stokProduk.isBlank()) {
+            JOptionPane.showMessageDialog(this, 
+                "Stok produk tidak boleh kosong!", 
+                "Kesalahan", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+       
+
+    double hargaProduk1;
+    int stokProduk1;
+
+    try {
+        // Konversi harga ke double
+        hargaProduk1 = Double.parseDouble(hargaProduk);
+        if (hargaProduk1 < 0) {
+            JOptionPane.showMessageDialog(this, 
+                "Harga produk tidak boleh negatif!", 
+                "Kesalahan", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, 
+            "Harga produk harus berupa angka!", 
+            "Kesalahan", 
+            JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    try {
+        // Konversi stok ke int
+        stokProduk1 = Integer.parseInt(stokProduk);
+        if (stokProduk1 < 0) {
+            JOptionPane.showMessageDialog(this, 
+                "Stok produk tidak boleh negatif!", 
+                "Kesalahan", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, 
+            "Stok produk harus berupa angka!", 
+            "Kesalahan", 
+            JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    int userID = sessionModel.getUserID();  // You need to define how to get the logged-in user's ID
+
+    // Panggil repoAddProduk setelah konversi berhasil
+    int id = repo1.repoAddProduk(namaProduk, hargaProduk1, deskripsiProduk, stokProduk1, userID);
+    if (id <= 0) {
+        JOptionPane.showMessageDialog(this, 
+            "Gagal menambahkan data produk!", 
+            "Kesalahan", 
+            JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    JOptionPane.showMessageDialog(this, 
+        "Produk berhasil ditambahkan!\n" +
+        "Nama Produk: " + namaProduk + "\n" +
+        "Harga: " + hargaProduk1 + "\n" +
+        "Stok: " + stokProduk1, 
+        "Sukses", 
+        JOptionPane.INFORMATION_MESSAGE);
+    // Callback jika berhasil
+    callback.run();
+    }//GEN-LAST:event_simpanButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField deskripsi_produk;
     private javax.swing.JTextField harga_produk;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton_kurang;
     private javax.swing.JButton jButton_tambah;
     private javax.swing.JLabel jLabel3;
@@ -335,6 +445,7 @@ public class SellingPanel1 extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField nama_produk;
+    private javax.swing.JButton simpanButton;
     private javax.swing.JTextField stok_produk;
     // End of variables declaration//GEN-END:variables
 }

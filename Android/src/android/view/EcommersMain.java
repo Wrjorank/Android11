@@ -4,7 +4,8 @@
  */
 package android.view;
 
-import android.repository.IRepoEcommer;
+import android.repository.IRepoProduk;
+import android.repository.RepoProduk;
 import android.view.SellingPanel;
 import android.view.panel.AboutUser;
 import android.view.panel.BuyingPanel;
@@ -18,12 +19,12 @@ import javax.swing.BoxLayout;
  */
 public class EcommersMain extends javax.swing.JFrame {
 
-    private IRepoEcommer repo;
+    private IRepoProduk repo;
     
     public EcommersMain() {
         initComponents();
         
-        this.repo = new IRepoEcommer();
+        this.repo = new RepoProduk() {};
         setUIMenuActive(1);
     }
 

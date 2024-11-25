@@ -38,7 +38,7 @@
                           <Component id="jButton_kurang" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="jButton5" min="-2" pref="298" max="-2" attributes="0"/>
+                  <Component id="simpanButton" min="-2" pref="298" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="32" max="32767" attributes="0"/>
           </Group>
@@ -76,7 +76,7 @@
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-              <Component id="jButton5" min="-2" pref="38" max="-2" attributes="0"/>
+              <Component id="simpanButton" min="-2" pref="38" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -211,7 +211,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_kurangActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
+    <Component class="javax.swing.JButton" name="simpanButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Simpan"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -219,6 +219,9 @@
           <Color id="Hand Cursor"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simpanButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -394,7 +394,7 @@ public class SellingPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_deskripsi_produkMouseClicked
 
     private void harga_produkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_harga_produkMouseClicked
-        harga_produk.setText("Rp ");
+        harga_produk.setText("");
     }//GEN-LAST:event_harga_produkMouseClicked
 
     private void stok_produkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stok_produkMouseClicked

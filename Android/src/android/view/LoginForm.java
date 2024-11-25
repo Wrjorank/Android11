@@ -4,7 +4,10 @@
  */
 package android.view;
 
+import android.model.ProdukModel;
 import android.model.RegisterModel;
+import android.model.sessionModel;
+import android.repository.IRepoProduk;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -13,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author Acer NITRO 5
  */
 public class LoginForm extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form registrasi
      */
@@ -250,7 +253,7 @@ public class LoginForm extends javax.swing.JFrame {
          // Ambil username dan password yang dimasukkan oleh pengguna
     String username = jTextField_username.getText();  // Input field untuk username
     String password = new String(jPasswordField_password.getPassword());  // Input field untuk password
-    
+    int loggedInUserID;
     // Periksa apakah username dan password kosong
     if (username.isEmpty() || password.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Username dan Password tidak boleh kosong.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -267,6 +270,13 @@ public class LoginForm extends javax.swing.JFrame {
         EcommersMain ecommersMain = new EcommersMain(); // Pastikan FastForm adalah nama kelas form baru Anda
         ecommersMain.setVisible(true); // Tampilkan form FastForm
         
+        int userID = ProdukModel.getUserIDByUsername(username);
+        if (userID == -1) {
+            JOptionPane.showMessageDialog(this, "Gagal mendapatkan ID pengguna.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        sessionModel.setUserID(userID);
+        
         // Tutup form login saat ini
         this.dispose();
     } else {
@@ -274,6 +284,10 @@ public class LoginForm extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Username atau Password salah.", "Error", JOptionPane.ERROR_MESSAGE);
         jPasswordField_password.setText("");
     }
+  
+
+    // Method untuk mengakses user ID
+
     }//GEN-LAST:event_jButton_loginActionPerformed
 
     private void jButton_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_cancelActionPerformed

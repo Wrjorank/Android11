@@ -4,7 +4,7 @@
  */
 package android.view.panel;
 
-import android.repository.IRepoEcommer;
+import android.repository.IRepoProduk;
 
 /**
  *
@@ -12,13 +12,13 @@ import android.repository.IRepoEcommer;
  */
 public class BuyingPanel extends javax.swing.JPanel {
     
-        private final IRepoEcommer repo;
+        private final IRepoProduk repo;
         private final Runnable callback;
 
     /**
      * Creates new form BuyingPanel
      */
-    public BuyingPanel(IRepoEcommer repo, Runnable callback) {
+    public BuyingPanel(IRepoProduk repo, Runnable callback) {
         System.out.println("BuyingPanel");
         this.repo = repo;
         this.callback = callback;
