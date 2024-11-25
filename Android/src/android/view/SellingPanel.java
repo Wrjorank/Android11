@@ -334,14 +334,14 @@ public class SellingPanel extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(stok_produk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton_kurang)
                             .addComponent(jButton_tambah))
-                        .addGap(187, 187, 187)))
+                        .addGap(163, 163, 163)))
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(42, 42, 42)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
@@ -394,7 +394,7 @@ public class SellingPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_deskripsi_produkMouseClicked
 
     private void harga_produkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_harga_produkMouseClicked
-        harga_produk.setText("Rp ");
+        harga_produk.setText("");
     }//GEN-LAST:event_harga_produkMouseClicked
 
     private void stok_produkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stok_produkMouseClicked
