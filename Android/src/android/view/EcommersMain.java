@@ -9,6 +9,7 @@ import android.repository.RepoProduk;
 import android.view.SellingPanel;
 import android.view.panel.AboutUser;
 import android.view.panel.BuyingPanel;
+import android.view.panel.DrafProduct;
 import android.view.panel.SellingPanel1;
 import java.awt.Color;
 import javax.swing.BoxLayout;
@@ -24,7 +25,7 @@ public class EcommersMain extends javax.swing.JFrame {
     public EcommersMain() {
         initComponents();
         
-        this.repo = new RepoProduk() {};
+        this.repo = new RepoProduk();
         setUIMenuActive(1);
     }
 
@@ -175,12 +176,17 @@ public class EcommersMain extends javax.swing.JFrame {
                 }));
             }
             case 2 -> {
-                pnlControl.add(new SellingPanel1(repo, () -> {
-                    setUIMenuActive(1);
+                pnlControl.add(new DrafProduct(repo, () -> {
+                    setUIMenuActive(4);
                 }));
             }
             case 3 -> {
                 pnlControl.add(new AboutUser(repo, () -> {
+                    setUIMenuActive(1);
+                }));
+            }
+            case 4 -> {
+                pnlControl.add(new SellingPanel1(repo, () -> {
                     setUIMenuActive(1);
                 }));
             }
