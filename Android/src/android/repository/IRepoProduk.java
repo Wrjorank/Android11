@@ -25,4 +25,6 @@ public interface IRepoProduk {
     ArrayList<Produk> repoSearchProduk (String keywords);
     
     int repoGetUserIDByUsername (String username);
+    
+    String repoGetUsernameByUserID (int ID);
 }

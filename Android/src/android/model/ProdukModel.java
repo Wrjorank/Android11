@@ -82,6 +82,24 @@ public class ProdukModel {
         return userID;
     }
 
+    public static String getUsernameByUserID(int userID) {
+    String username = null; // Default null jika tidak ditemukan
+    try (java.sql.Connection conn = DBUtil.getConnection();
+         PreparedStatement stmt = conn.prepareStatement("SELECT username FROM register WHERE id = ?")) {
+        stmt.setInt(1, userID); // Menggunakan userID sebagai parameter pencarian
+        
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                username = rs.getString("username"); // Mendapatkan username berdasarkan ID
+            }
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return username; // Mengembalikan username, null jika tidak ditemukan
+    }
+
+
     public static Produk getProdukById(int idBarang) {
     // Query SQL untuk mendapatkan data produk berdasarkan ID
     String query = "SELECT p.ID_produk, p.namaBarang, p.harga, p.deskripsi, " +

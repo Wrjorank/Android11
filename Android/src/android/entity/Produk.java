@@ -34,27 +34,27 @@ public class Produk {
         return idBarang; 
     }
     
-    public String namaBarang() { 
+    public String getnamaBarang() { 
         return namaBarang; 
     }
     
-    public double harga() { 
+    public double getharga() { 
         return harga; 
     }
     
-    public String deskripsi() { 
+    public String getdeskripsi() { 
         return deskripsi; 
     }
     
-    public int stokBarang() { 
+    public int getstokBarang() { 
         return stokBarang; 
     }
     
-    public String username() { 
+    public String getusername() { 
         return username; 
     }
     
-    public int barangTerjual() { 
+    public int getbarangTerjual() { 
         return barangTerjual; 
     }
          
