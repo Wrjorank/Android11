@@ -364,7 +364,7 @@ public class RegisterForm extends javax.swing.JFrame {
         }
 
         // Koneksi ke database
-        String url = "jdbc:mariadb://localhost:3306/proyek_register"; // Nama database
+        String url = "jdbc:mariadb://localhost:3306/db_fasta"; // Nama database
         String user = "root"; // Sesuaikan dengan username database Anda
         String pass = "";     // Sesuaikan dengan password database Anda
 
