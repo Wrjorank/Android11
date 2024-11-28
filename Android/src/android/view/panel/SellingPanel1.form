@@ -28,19 +28,21 @@
                       <Component id="jLabel4" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
                       <Component id="nama_produk" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel7" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
-                              <Component id="stok_produk" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
+                              <Component id="stok_produk" alignment="0" max="32767" attributes="0"/>
+                              <Component id="kategori" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButton_tambah" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jButton_kurang" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="simpanButton" min="-2" pref="298" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="32" max="32767" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -75,7 +77,11 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="kategori" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="simpanButton" min="-2" pref="38" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
           </Group>
@@ -222,6 +228,43 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simpanButtonActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="kategori">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="21">
+            <StringItem index="0" value="Pilih"/>
+            <StringItem index="1" value="Elektronik"/>
+            <StringItem index="2" value="Fashion"/>
+            <StringItem index="3" value="Kecantikan"/>
+            <StringItem index="4" value="Perawatan Diri"/>
+            <StringItem index="5" value="Peralatan Masak"/>
+            <StringItem index="6" value="Perabot Rumah Tangga"/>
+            <StringItem index="7" value="Dekorasi Rumah"/>
+            <StringItem index="8" value="Alat Kebersihan"/>
+            <StringItem index="9" value="Peralatan Penyimpanan"/>
+            <StringItem index="10" value="Makanan dan Minuman"/>
+            <StringItem index="11" value="Kesehatan"/>
+            <StringItem index="12" value="Olahraga"/>
+            <StringItem index="13" value="Otomotif"/>
+            <StringItem index="14" value="Perlengkapan Sekolah"/>
+            <StringItem index="15" value="Mainan dan Hobi"/>
+            <StringItem index="16" value="Produk Digital"/>
+            <StringItem index="17" value="Perlengkapan Bayi"/>
+            <StringItem index="18" value="Peralatan dan Perbaikan Rumah"/>
+            <StringItem index="19" value="Hewan dan Peliharaan"/>
+            <StringItem index="20" value="Tiket dan Perjalanan"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Kategori"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public interface IRepoProduk {
     ArrayList<Produk> repoGetAllProduk();
     
-    int repoAddProduk(String namaBarang, double harga, String deskripsi, int stokBarang, int userID);
+    int repoAddProduk(String namaBarang, double harga, String deskripsi, int stokBarang, String kategori, String username, int userID);
     
     boolean repoRemoveProduk(int id);
     
@@ -24,7 +24,9 @@ public interface IRepoProduk {
     
     ArrayList<Produk> repoSearchProduk (String keywords);
     
+    ArrayList<Produk> repoSearchProdukbyKategori(String keywords);
+    
     int repoGetUserIDByUsername (String username);
     
-    String repoGetUsernameByUserID (int ID);
+    String repoGetUsernameByUserIDproduk (int ID);
 }
