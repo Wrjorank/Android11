@@ -15,15 +15,18 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.Window;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -168,18 +171,17 @@ public class BuyingPanel extends javax.swing.JPanel {
 }
      
      private void handleBeli(Produk produk) {
-     this.setVisible(false);
-
-        // Buat callback yang dijalankan setelah transaksi selesai
-        Runnable callback = () -> {
-            this.setVisible(true); // Menampilkan kembali HomePanel setelah KonfirmasiPanel selesai
-        };
-
-        // Inisialisasi KonfirmasiPanel dengan argumen yang diperlukan
-        KonfirmasiPanel konfirPanel = new KonfirmasiPanel();
-
-        // Menampilkan KonfirmasiPanel
+     
+        KonfirmasiPanel konfirPanel = new KonfirmasiPanel(repo, callback);
+        konfirPanel.setNamaBarang(produk.getnamaBarang());
+        konfirPanel.setDeskripsiBarang(produk.getdeskripsi());
+        konfirPanel.setHargaBarang(produk.getharga());
+        
         konfirPanel.setVisible(true);
+        Window window = SwingUtilities.getWindowAncestor(this);
+        if (window instanceof JFrame) {
+        ((JFrame) window).dispose(); // Menutup JFrame yang berisi JPanel ini
+    }
      }
     /**
      * This method is called from within the constructor to initialize the form.
