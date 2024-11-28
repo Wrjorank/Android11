@@ -29,4 +29,6 @@ public interface IRepoProduk {
     int repoGetUserIDByUsername (String username);
     
     String repoGetUsernameByUserIDproduk (int ID);
+    
+    ArrayList<Produk> repoGetAllUserProduk();
 }

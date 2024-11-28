@@ -60,4 +60,9 @@ public class RepoProduk implements IRepoProduk{
     public String repoGetUsernameByUserIDproduk (int ID){
         return ProdukModel.getUsernameByUserIDproduk(ID);
     }
+    
+    @Override
+    public ArrayList<Produk> repoGetAllUserProduk() {
+        return ProdukModel.getAllUserProduk("");
+    } 
 }

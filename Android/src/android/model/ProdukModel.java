@@ -285,5 +285,55 @@ public static boolean deleteProduk(int id) {
 
     return false; // Return false jika gagal atau tidak ada data yang dihapus
 }
+public static ArrayList<Produk> getAllUserProduk(String keyword) {
+    ArrayList<Produk> produkList = new ArrayList<>();
+    int userID = sessionModel.getUserID();
+    String query = "SELECT p.ID_produk, p.namaBarang, p.harga, p.deskripsi, " +
+                   "p.stokBarang, p.barangTerjual, p.kategori, r.username " +
+                   "FROM produk p " +
+                   "LEFT JOIN register r ON p.ID = r.id " +
+                   "WHERE p.ID = ?";
+
+    // Tambahkan filter jika keyword diberikan
+    if (keyword != null && !keyword.isEmpty()) {
+        query += " AND p.namaBarang LIKE ?";
+    }
+
+    query += " ORDER BY p.ID_produk ASC";
+
+    try (java.sql.Connection conn = DBUtil.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        // Set parameter userID
+        stmt.setInt(1, userID);
+
+        // Set parameter keyword jika ada
+        if (keyword != null && !keyword.isEmpty()) {
+            stmt.setString(2, "%" + keyword + "%");
+        }
+
+        // Eksekusi query dan proses hasil
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Produk produk = new Produk(
+                rs.getInt("ID_produk"),
+                rs.getString("namaBarang"),
+                rs.getBigDecimal("harga").intValue(), // Konversi DECIMAL ke int
+                rs.getString("deskripsi"),
+                rs.getInt("stokBarang"),
+                rs.getString("kategori"),
+                rs.getString("username"),
+                rs.getInt("barangTerjual")
+            );
+            produkList.add(produk);
+        }
+    } catch (SQLException e) {
+        // Log error untuk debugging
+        System.err.println("Error saat mengambil data produk: " + e.getMessage());
+        e.printStackTrace();
+    }
+
+    return produkList;
+}
 
 }
