@@ -8,6 +8,7 @@ import android.entity.Produk;
 import android.model.ProdukModel;
 import android.model.sessionModel;
 import android.repository.IRepoProduk;
+import android.view.KonfirmasiPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -44,6 +45,8 @@ public class BuyingPanel extends javax.swing.JPanel {
         
         
         initComponents();
+          this.setFocusable(true);
+        this.requestFocusInWindow();
         
          
         // Menambahkan JScrollPane ke contentPanel
@@ -165,11 +168,18 @@ public class BuyingPanel extends javax.swing.JPanel {
 }
      
      private void handleBeli(Produk produk) {
-    // Hide the current panel (HomePanel)
-    this.setVisible(false);
+     this.setVisible(false);
 
-    // Inisialisasi EditPanel dengan argumen yang diperlukan
-    konfirmasipanel konfirpanel = new konfirmasipanel();
+        // Buat callback yang dijalankan setelah transaksi selesai
+        Runnable callback = () -> {
+            this.setVisible(true); // Menampilkan kembali HomePanel setelah KonfirmasiPanel selesai
+        };
+
+        // Inisialisasi KonfirmasiPanel dengan argumen yang diperlukan
+        KonfirmasiPanel konfirPanel = new KonfirmasiPanel();
+
+        // Menampilkan KonfirmasiPanel
+        konfirPanel.setVisible(true);
      }
     /**
      * This method is called from within the constructor to initialize the form.

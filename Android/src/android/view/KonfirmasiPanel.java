@@ -4,6 +4,8 @@
  */
 package android.view;
 
+import android.repository.IRepoProduk;
+
 /**
  *
  * @author Legion
@@ -13,7 +15,7 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
     /**
      * Creates new form KonfirmasiPanel
      */
-    public KonfirmasiPanel() {
+    public KonfirmasiPanel(){
         initComponents();
     }
 
