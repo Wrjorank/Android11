@@ -16,16 +16,18 @@ public class Produk {
     private final double harga;
     private final String deskripsi;
     private final int stokBarang;
+    private final String kategori;
     private final String username;
     private final int barangTerjual;
 
     
-    public Produk(int idBarang, String namaBarang, double harga, String deskripsi, int stokBarang, String username, int barangTerjual) {
+    public Produk(int idBarang, String namaBarang, double harga, String deskripsi, int stokBarang, String kategori, String username, int barangTerjual) {
         this.idBarang = idBarang;
         this.namaBarang = namaBarang;
         this.harga = harga;
         this.deskripsi = deskripsi;
         this.stokBarang = stokBarang;
+        this.kategori = kategori;
         this.username = username;
         this.barangTerjual = barangTerjual;
 
@@ -34,27 +36,31 @@ public class Produk {
         return idBarang; 
     }
     
-    public String namaBarang() { 
+    public String getnamaBarang() { 
         return namaBarang; 
     }
     
-    public double harga() { 
+    public double getharga() { 
         return harga; 
     }
     
-    public String deskripsi() { 
+    public String getdeskripsi() { 
         return deskripsi; 
     }
     
-    public int stokBarang() { 
+    public int getstokBarang() { 
         return stokBarang; 
     }
     
-    public String username() { 
+    public String getkategori() { 
+        return kategori; 
+    }
+     
+    public String getusername() { 
         return username; 
     }
     
-    public int barangTerjual() { 
+    public int getbarangTerjual() { 
         return barangTerjual; 
     }
          

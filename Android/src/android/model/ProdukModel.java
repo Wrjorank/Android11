@@ -22,8 +22,8 @@ import static javax.swing.text.html.HTML.Attribute.ID;
  */
 public class ProdukModel {
 
-    public static int addProduk(String namaBarang, double harga, String deskripsi, int stokBarang, int ID) {
-    String query = "INSERT INTO produk (namaBarang, harga, deskripsi, stokBarang, ID) VALUES (?, ?, ?, ?, ?)";
+    public static int addProduk(String namaBarang, double harga, String deskripsi, int stokBarang, String kategori, String username, int ID) {
+    String query = "INSERT INTO produk (namaBarang, harga, deskripsi, stokBarang, kategori, username, ID) VALUES (?, ?, ?, ?, ?, ?, ?)";
     
     try (java.sql.Connection conn = DBUtil.getConnection();
          PreparedStatement stmt = conn.prepareStatement(query, java.sql.Statement.RETURN_GENERATED_KEYS)) {
@@ -38,7 +38,9 @@ public class ProdukModel {
         stmt.setDouble(2, harga);
         stmt.setString(3, deskripsi);
         stmt.setInt(4, stokBarang);
-        stmt.setInt(5, ID); // Set user ID for foreign key
+        stmt.setString(5, kategori);
+        stmt.setString(6, username);
+        stmt.setInt(7, ID); // Set user ID for foreign key
 
         // Eksekusi query dan cek jumlah baris yang terpengaruh
         int affectedRows = stmt.executeUpdate();
@@ -82,10 +84,28 @@ public class ProdukModel {
         return userID;
     }
 
+    public static String getUsernameByUserIDproduk(int ID_produk) {
+    String username = null; // Default null jika tidak ditemukan
+    try (java.sql.Connection conn = DBUtil.getConnection();
+         PreparedStatement stmt = conn.prepareStatement("SELECT username FROM produk WHERE ID_produk = ?")) {
+        stmt.setInt(1, ID_produk); // Menggunakan userID sebagai parameter pencarian
+        
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                username = rs.getString("username"); // Mendapatkan username berdasarkan ID
+            }
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return username; // Mengembalikan username, null jika tidak ditemukan
+    }
+
+
     public static Produk getProdukById(int idBarang) {
     // Query SQL untuk mendapatkan data produk berdasarkan ID
     String query = "SELECT p.ID_produk, p.namaBarang, p.harga, p.deskripsi, " +
-                   "p.stokBarang, p.barangTerjual, r.username " +
+                   "p.stokBarang, p.barangTerjual, p.kategori, r.username " +
                    "FROM produk p " +
                    "LEFT JOIN register r ON p.ID = r.id " +
                    "WHERE p.ID_produk = ?";
@@ -107,6 +127,7 @@ public class ProdukModel {
                 rs.getBigDecimal("harga").intValue(), // Konversi DECIMAL ke int
                 rs.getString("deskripsi"),
                 rs.getInt("stokBarang"),
+                rs.getString("kategori"),  
                 rs.getString("username"),
                 rs.getInt("barangTerjual")
             );
@@ -126,7 +147,7 @@ public class ProdukModel {
     public static ArrayList<Produk> getAllProduk(String keyword) {
     ArrayList<Produk> produkList = new ArrayList<>();
     String query = "SELECT p.ID_produk, p.namaBarang, p.harga, p.deskripsi, " +
-                   "p.stokBarang, p.barangTerjual, r.username " +
+                   "p.stokBarang, p.barangTerjual, p.kategori, r.username " +
                    "FROM produk p " +
                    "LEFT JOIN register r ON p.ID = r.id";
 
@@ -153,6 +174,52 @@ public class ProdukModel {
                 rs.getBigDecimal("harga").intValue(), // Konversi DECIMAL ke int
                 rs.getString("deskripsi"),
                 rs.getInt("stokBarang"),
+                rs.getString("kategori"),
+                rs.getString("username"),
+                rs.getInt("barangTerjual")
+            );
+            produkList.add(produk);
+        }
+    } catch (SQLException e) {
+        // Log error untuk debugging
+        System.err.println("Error saat mengambil data produk: " + e.getMessage());
+        e.printStackTrace();
+    }
+
+    return produkList;
+}
+    
+    public static ArrayList<Produk> getSearchProduk(String keyword) {
+    ArrayList<Produk> produkList = new ArrayList<>();
+    String query = "SELECT p.ID_produk, p.namaBarang, p.harga, p.deskripsi, " +
+                   "p.stokBarang, p.barangTerjual, p.kategori, r.username " +
+                   "FROM produk p " +
+                   "LEFT JOIN register r ON p.ID = r.id";
+
+    // Tambahkan filter jika keyword diberikan
+    if (keyword != null && !keyword.isEmpty()) {
+        query += " WHERE p.kategori LIKE ? ";
+    }
+    query += " ORDER BY p.ID_produk ASC";
+
+    try (java.sql.Connection conn = DBUtil.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        // Set parameter jika ada keyword
+        if (keyword != null && !keyword.isEmpty()) {
+            stmt.setString(1, "%" + keyword + "%");
+        }
+
+        // Eksekusi query dan proses hasil
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Produk produk = new Produk(
+                rs.getInt("ID_produk"),
+                rs.getString("namaBarang"),
+                rs.getBigDecimal("harga").intValue(), // Konversi DECIMAL ke int
+                rs.getString("deskripsi"),
+                rs.getInt("stokBarang"),
+                rs.getString("kategori"),
                 rs.getString("username"),
                 rs.getInt("barangTerjual")
             );

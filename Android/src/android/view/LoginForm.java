@@ -253,7 +253,7 @@ public class LoginForm extends javax.swing.JFrame {
          // Ambil username dan password yang dimasukkan oleh pengguna
     String username = jTextField_username.getText();  // Input field untuk username
     String password = new String(jPasswordField_password.getPassword());  // Input field untuk password
-    int loggedInUserID;
+    
     // Periksa apakah username dan password kosong
     if (username.isEmpty() || password.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Username dan Password tidak boleh kosong.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -271,11 +271,13 @@ public class LoginForm extends javax.swing.JFrame {
         ecommersMain.setVisible(true); // Tampilkan form FastForm
         
         int userID = ProdukModel.getUserIDByUsername(username);
+        String username1 = username;
         if (userID == -1) {
             JOptionPane.showMessageDialog(this, "Gagal mendapatkan ID pengguna.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         sessionModel.setUserID(userID);
+        sessionModel.setUsername(username1);
         
         // Tutup form login saat ini
         this.dispose();

@@ -367,14 +367,15 @@ if (!password.equals(ulangiPassword)) {
     return;
 }
 
-// Koneksi ke database
-String url = "jdbc:mariadb://localhost:3306/proyek_register"; // Nama database
-String user = "root"; // Sesuaikan dengan username database Anda
-String pass = "";     // Sesuaikan dengan password database Anda
+      // Koneksi ke database
+    String url = "jdbc:mariadb://localhost:3306/db_fasta"; // Nama database
+    String user = "root"; // Sesuaikan dengan username database Anda
+    String pass = "";     // Sesuaikan dengan password database Anda
 
 try (Connection conn = DriverManager.getConnection(url, user, pass)) {
     conn.setAutoCommit(false); // Gunakan transaksi
-
+  
+    
     // Periksa apakah username sudah ada
     String checkSql = "SELECT COUNT(*) FROM register WHERE username = ?";
     try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
