@@ -51,7 +51,7 @@ public class BuyingPanel extends javax.swing.JPanel {
          
         // Menambahkan JScrollPane ke contentPanel
         jScrollPane = new JScrollPane(contentPanel);
-        jScrollPane.setPreferredSize(new Dimension(400, 412)); // Ukuran default scrollable area
+        jScrollPane.setPreferredSize(new Dimension(400, 408)); // Ukuran default scrollable area
         jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);  // Atur kebijakan scroll vertikal
         
         // Menambahkan JScrollPane ke layout utama
