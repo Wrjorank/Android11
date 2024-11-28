@@ -9,6 +9,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
+import java.sql.Statement;
+import java.sql.ResultSet;
+
+
 
 /**
  *
@@ -341,76 +345,91 @@ public class RegisterForm extends javax.swing.JFrame {
 
     private void jButton_createMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_createMouseClicked
             // Ambil data dari form
-        String namaDepan = jTextField_namadepan.getText();
-        String namaBelakang = jTextField_namabelakang.getText();
-        String username = jTextField_username.getText();
-        String password = new String(jPasswordField_password1.getPassword());
-        String ulangiPassword = new String(jPasswordField_ulangi.getPassword());
-        String tanggalLahir = jTextField_tanggallahir.getText();
-        String alamat = jTextArea_alamat.getText();
+String namaDepan = jTextField_namadepan.getText();
+String namaBelakang = jTextField_namabelakang.getText();
+String username = jTextField_username.getText();
+String password = new String(jPasswordField_password1.getPassword());
+String ulangiPassword = new String(jPasswordField_ulangi.getPassword());
+String tanggalLahir = jTextField_tanggallahir.getText();
+String alamat = jTextArea_alamat.getText();
 
-        // Validasi input
-        if (namaDepan.isEmpty() || namaBelakang.isEmpty() || username.isEmpty() || password.isEmpty() || tanggalLahir.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Semua field harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
+// Validasi input
+if (namaDepan.isEmpty() || namaBelakang.isEmpty() || username.isEmpty() || password.isEmpty() || tanggalLahir.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Semua field harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+// Validasi apakah password dan ulangi password cocok
+if (!password.equals(ulangiPassword)) {
+    JOptionPane.showMessageDialog(this, "Password tidak identik!", "Error", JOptionPane.ERROR_MESSAGE);
+    jPasswordField_password1.setText("");
+    jPasswordField_ulangi.setText("");
+    return;
+}
+
+// Koneksi ke database
+String url = "jdbc:mariadb://localhost:3306/proyek_register"; // Nama database
+String user = "root"; // Sesuaikan dengan username database Anda
+String pass = "";     // Sesuaikan dengan password database Anda
+
+try (Connection conn = DriverManager.getConnection(url, user, pass)) {
+    conn.setAutoCommit(false); // Gunakan transaksi
+
+    // Periksa apakah username sudah ada
+    String checkSql = "SELECT COUNT(*) FROM register WHERE username = ?";
+    try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+        checkStmt.setString(1, username);
+        ResultSet rs = checkStmt.executeQuery();
+
+        if (rs.next() && rs.getInt(1) > 0) {
+            JOptionPane.showMessageDialog(this, "Username sudah digunakan!", "Error", JOptionPane.ERROR_MESSAGE);
+            jTextField_username.setText("");
             return;
         }
+    }
 
-        // Validasi apakah password dan ulangi password cocok
-        if (!password.equals(ulangiPassword)) {
-            JOptionPane.showMessageDialog(this, "Password tidak identik!", "Error", JOptionPane.ERROR_MESSAGE);
-            jPasswordField_password1.setText("");
-            jPasswordField_ulangi.setText("");
-            return;
-        }
+    // Query SQL untuk memasukkan data ke tabel register
+    String registerSql = "INSERT INTO register (namaDepan, namaBelakang, username, password, alamat, tanggalLahir) VALUES (?, ?, ?, ?, ?, ?)";
+    try (PreparedStatement registerStmt = conn.prepareStatement(registerSql, Statement.RETURN_GENERATED_KEYS)) {
+        registerStmt.setString(1, namaDepan);
+        registerStmt.setString(2, namaBelakang);
+        registerStmt.setString(3, username);
+        registerStmt.setString(4, password); // Hindari menyimpan password langsung (gunakan hashing untuk produksi)
+        registerStmt.setString(5, alamat);
+        registerStmt.setString(6, tanggalLahir);
 
-        // Koneksi ke database
-        String url = "jdbc:mariadb://localhost:3306/proyek_register"; // Nama database
-        String user = "root"; // Sesuaikan dengan username database Anda
-        String pass = "";     // Sesuaikan dengan password database Anda
+        // Eksekusi query
+        int rowsInserted = registerStmt.executeUpdate();
+        if (rowsInserted > 0) {
+            ResultSet generatedKeys = registerStmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int userId = generatedKeys.getInt(1); // Ambil id yang baru dihasilkan
 
-        try (Connection conn = DriverManager.getConnection(url, user, pass)) {
-            // Periksa apakah username sudah ada
-            String checkSql = "SELECT COUNT(*) FROM register WHERE username = ?";
-            try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
-                checkStmt.setString(1, username);
-
-                // Eksekusi query dan langsung mendapatkan hasil
-                int count = checkStmt.executeQuery().next() ? checkStmt.getResultSet().getInt(1) : 0;
-
-                if (count > 0) {
-                    JOptionPane.showMessageDialog(this, "Username sudah digunakan!", "Error", JOptionPane.ERROR_MESSAGE);
-                    jTextField_username.setText("");
-                    return; // Hentikan proses jika username sudah ada
+                // Query untuk memasukkan data ke tabel saldo
+                String saldoSql = "INSERT INTO saldo (id, saldo) VALUES (?, 0)";
+                try (PreparedStatement saldoStmt = conn.prepareStatement(saldoSql)) {
+                    saldoStmt.setInt(1, userId); // Gunakan id dari register
+                    saldoStmt.executeUpdate();
                 }
-            }
 
-            // Query SQL untuk memasukkan data
-            String sql = "INSERT INTO register (namaDepan, namaBelakang, username, password, alamat, tanggalLahir) VALUES (?, ?, ?, ?, ?, ?)";
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setString(1, namaDepan);
-                stmt.setString(2, namaBelakang);
-                stmt.setString(3, username);
-                stmt.setString(4, password); // Hindari menyimpan password langsung (gunakan hashing untuk produksi)
-                stmt.setString(5, alamat);
-                stmt.setString(6, tanggalLahir);
+                conn.commit(); // Konfirmasi transaksi
+                JOptionPane.showMessageDialog(this, "Data berhasil disimpan!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
-                // Eksekusi query
-                int rowsInserted = stmt.executeUpdate();
-                if (rowsInserted > 0) {
-                    JOptionPane.showMessageDialog(this, "Data berhasil disimpan!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-                    
-                // tutup frame saat ini
+                // Tutup frame saat ini
                 this.dispose();
-                //buat dan buka frame Calculator
+                // Buka frame Login
                 LoginForm login = new LoginForm();
-                login.setVisible(true);              
-                }
+                login.setVisible(true);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            conn.rollback(); // Batalkan transaksi jika gagal
+            JOptionPane.showMessageDialog(this, "Gagal membuat akun!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
+    }
+} catch (Exception e) {
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+}
     }//GEN-LAST:event_jButton_createMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
