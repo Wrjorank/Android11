@@ -52,6 +52,8 @@ public class SellingPanel1 extends javax.swing.JPanel {
         jButton_tambah = new javax.swing.JButton();
         jButton_kurang = new javax.swing.JButton();
         simpanButton = new javax.swing.JButton();
+        kategori = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         jPanel2.setBackground(new java.awt.Color(51, 153, 255));
 
@@ -179,6 +181,10 @@ public class SellingPanel1 extends javax.swing.JPanel {
             }
         });
 
+        kategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "Elektronik", "Fashion", "Kecantikan", "Perawatan Diri", "Peralatan Masak", "Perabot Rumah Tangga", "Dekorasi Rumah", "Alat Kebersihan", "Peralatan Penyimpanan", "Makanan dan Minuman", "Kesehatan", "Olahraga", "Otomotif", "Perlengkapan Sekolah", "Mainan dan Hobi", "Produk Digital", "Perlengkapan Bayi", "Peralatan dan Perbaikan Rumah", "Hewan dan Peliharaan", "Tiket dan Perjalanan" }));
+
+        jLabel1.setText("Kategori");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -195,15 +201,17 @@ public class SellingPanel1 extends javax.swing.JPanel {
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(nama_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(stok_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(stok_produk)
+                                .addComponent(kategori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jButton_tambah)
                             .addGap(18, 18, 18)
-                            .addComponent(jButton_kurang)))
+                            .addComponent(jButton_kurang))
+                        .addComponent(jLabel1))
                     .addComponent(simpanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +240,11 @@ public class SellingPanel1 extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton_kurang)
                             .addComponent(jButton_tambah))))
-                .addGap(64, 64, 64)
+                .addGap(2, 2, 2)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(kategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(simpanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
         );
@@ -336,6 +348,8 @@ public class SellingPanel1 extends javax.swing.JPanel {
         String deskripsiProduk = deskripsi_produk.getText();
         String hargaProduk = harga_produk.getText();
         String stokProduk = stok_produk.getText();
+        String kategori1 = (String)kategori.getSelectedItem();
+
         
         if (namaProduk.isBlank()) {
             JOptionPane.showMessageDialog(this, 
@@ -360,6 +374,8 @@ public class SellingPanel1 extends javax.swing.JPanel {
                 JOptionPane.ERROR_MESSAGE);
             return;
         }
+       
+       
         
         if (stokProduk.isBlank()) {
             JOptionPane.showMessageDialog(this, 
@@ -410,9 +426,9 @@ public class SellingPanel1 extends javax.swing.JPanel {
     }
     
     int userID = sessionModel.getUserID();  // You need to define how to get the logged-in user's ID
-
+    String username = sessionModel.getUsername();
     // Panggil repoAddProduk setelah konversi berhasil
-    int id = repo1.repoAddProduk(namaProduk, hargaProduk1, deskripsiProduk, stokProduk1, userID);
+    int id = repo1.repoAddProduk(namaProduk, hargaProduk1, deskripsiProduk, stokProduk1, kategori1, username, userID);
     if (id <= 0) {
         JOptionPane.showMessageDialog(this, 
             "Gagal menambahkan data produk!", 
@@ -438,12 +454,14 @@ public class SellingPanel1 extends javax.swing.JPanel {
     private javax.swing.JTextField harga_produk;
     private javax.swing.JButton jButton_kurang;
     private javax.swing.JButton jButton_tambah;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JComboBox<String> kategori;
     private javax.swing.JTextField nama_produk;
     private javax.swing.JButton simpanButton;
     private javax.swing.JTextField stok_produk;

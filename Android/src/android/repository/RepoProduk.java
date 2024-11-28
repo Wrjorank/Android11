@@ -21,8 +21,8 @@ public class RepoProduk implements IRepoProduk{
     } 
     
     @Override
-    public int repoAddProduk (String namaBarang, double harga, String deskripsi, int stokBarang, int userID) {
-        return ProdukModel.addProduk(namaBarang, harga, deskripsi, stokBarang, userID);
+    public int repoAddProduk (String namaBarang, double harga, String deskripsi, int stokBarang, String kategori, String username, int userID) {
+        return ProdukModel.addProduk(namaBarang, harga, deskripsi, stokBarang, kategori, username, userID);
     } 
     
     @Override
@@ -45,6 +45,11 @@ public class RepoProduk implements IRepoProduk{
     public ArrayList<Produk> repoSearchProduk(String keywords) {
         return ProdukModel.getAllProduk(keywords);
     }
+    
+    @Override
+    public ArrayList<Produk> repoSearchProdukbyKategori(String keywords) {
+        return ProdukModel.getSearchProduk(keywords);
+    }
 
     @Override
     public int repoGetUserIDByUsername (String username){
@@ -52,7 +57,7 @@ public class RepoProduk implements IRepoProduk{
     }
     
     @Override
-    public String repoGetUsernameByUserID (int ID){
-        return ProdukModel.getUsernameByUserID(ID);
+    public String repoGetUsernameByUserIDproduk (int ID){
+        return ProdukModel.getUsernameByUserIDproduk(ID);
     }
 }
