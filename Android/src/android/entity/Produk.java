@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package android.entity;
 
 import java.sql.Timestamp;
@@ -11,14 +7,14 @@ import java.sql.Timestamp;
  * @author Legion
  */
 public class Produk {    
-    private final int idBarang;
-    private final String namaBarang;
-    private final double harga;
-    private final String deskripsi;
-    private final int stokBarang;
-    private final String kategori;
-    private final String username;
-    private final int barangTerjual;
+    private int idBarang;  // Tidak final
+    private String namaBarang;
+    private double harga;
+    private String deskripsi;
+    private int stokBarang;  // Tidak final
+    private String kategori;
+    private String username;
+    private int barangTerjual;
 
     
     public Produk(int idBarang, String namaBarang, double harga, String deskripsi, int stokBarang, String kategori, String username, int barangTerjual) {
@@ -30,9 +26,10 @@ public class Produk {
         this.kategori = kategori;
         this.username = username;
         this.barangTerjual = barangTerjual;
+    }
 
-}
-    public int getidBarang() {
+    // Getter
+    public int getidBarang() { 
         return idBarang; 
     }
     
@@ -51,11 +48,44 @@ public class Produk {
     public int getstokBarang() { 
         return stokBarang; 
     }
-    
+
+    // Setter
+    public void setidBarang(int idBarang) { 
+        this.idBarang = idBarang; 
+    }
+
+    public void setnamaBarang(String namaBarang) { 
+        this.namaBarang = namaBarang; 
+    }
+
+    public void setharga(double harga) { 
+        this.harga = harga; 
+    }
+
+    public void setdeskripsi(String deskripsi) { 
+        this.deskripsi = deskripsi; 
+    }
+
+    public void setstokBarang(int stokBarang) { 
+        this.stokBarang = stokBarang; 
+    }
+
+    public void setkategori(String kategori) { 
+        this.kategori = kategori; 
+    }
+
+    public void setusername(String username) { 
+        this.username = username; 
+    }
+
+    public void setbarangTerjual(int barangTerjual) { 
+        this.barangTerjual = barangTerjual; 
+    }
+
     public String getkategori() { 
         return kategori; 
     }
-     
+    
     public String getusername() { 
         return username; 
     }
@@ -63,5 +93,4 @@ public class Produk {
     public int getbarangTerjual() { 
         return barangTerjual; 
     }
-         
 }
