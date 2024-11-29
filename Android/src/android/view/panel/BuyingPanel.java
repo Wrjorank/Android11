@@ -178,6 +178,9 @@ public class BuyingPanel extends javax.swing.JPanel {
         konfirPanel.setHargaBarang(produk.getharga());
         konfirPanel.setStok(produk.getstokBarang());
         
+        produk.setstokBarang(konfirPanel.setStokBarang());
+
+
         konfirPanel.setVisible(true);
         Window window = SwingUtilities.getWindowAncestor(this);
         if (window instanceof JFrame) {

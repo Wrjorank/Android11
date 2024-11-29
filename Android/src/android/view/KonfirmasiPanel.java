@@ -31,10 +31,6 @@ private static int stok1;
          
     }
 
-        public static int getStok() {
-            return stok1;
-        }
-
         // Setter untuk user ID
         public static void setStok(int stokmax) {
             stok1 = stokmax;
@@ -65,8 +61,6 @@ private static int stok1;
         jbrgtambah = new javax.swing.JButton();
         jbrgkurang = new javax.swing.JButton();
         jjumlahbrg = new javax.swing.JTextField();
-        jtextfil = new javax.swing.JLabel();
-        totalbeli = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -128,13 +122,13 @@ private static int stok1;
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(101, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jdeskripsibrg)
                     .addComponent(jhargabrg)
                     .addComponent(jnamabrg)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(136, 136, 136)
                 .addComponent(jLabel5)
@@ -153,7 +147,7 @@ private static int stok1;
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jhargabrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(25, 38, 65));
@@ -187,7 +181,7 @@ private static int stok1;
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbeli, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -235,54 +229,28 @@ private static int stok1;
             }
         });
 
-        jtextfil.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jtextfil.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jtextfil.setText("Total");
-
-        totalbeli.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        totalbeli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                totalbeliActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jbrgkurang, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jjumlahbrg)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbrgtambah, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(126, 126, 126)
-                                .addComponent(totalbeli, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(175, 175, 175)
-                                .addComponent(jtextfil)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbrgkurang, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jjumlahbrg, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jbrgtambah, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbrgtambah, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbrgkurang, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jjumlahbrg))
-                .addGap(18, 18, 18)
-                .addComponent(jtextfil)
-                .addGap(20, 20, 20)
-                .addComponent(totalbeli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jjumlahbrg)
+                    .addComponent(jbrgtambah, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(jbrgkurang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
 
         jPanel5.setBackground(new java.awt.Color(25, 38, 65));
@@ -327,8 +295,8 @@ private static int stok1;
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -351,6 +319,7 @@ private static int stok1;
 
         // Set nilai baru ke JTextField
         jjumlahbrg.setText(String.valueOf(stok));
+         
     } catch (NumberFormatException e) {
         // Jika stok bukan angka valid, tampilkan pesan error
         JOptionPane.showMessageDialog(this, "Nilai stok tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -368,22 +337,45 @@ private static int stok1;
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jbeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbeliActionPerformed
+           try {
+        // Ambil nilai jumlah barang dan harga barang
+        int jumlahBarang = Integer.parseInt(jjumlahbrg.getText());
+        double hargaBarang = Double.parseDouble(jhargabrg.getText());
+        int stok = Integer.parseInt(jjumlahbrg.getText());
+        
+        // Hitung total beli
+        double total = jumlahBarang * hargaBarang;
+        
+        // Tampilkan total harga di pesan konfirmasi
         int pilihan = JOptionPane.showConfirmDialog(
-        this, // Frame induk untuk dialog
-        "Apakah Anda yakin ingin membeli?", // Pesan yang ditampilkan
-        "Konfirmasi Pembelian", // Judul dialog
-        JOptionPane.YES_NO_OPTION, // Tipe opsi
-        JOptionPane.QUESTION_MESSAGE // Tipe pesan
-    );
-    
-    // Mengecek hasil dari dialog konfirmasi
-    if (pilihan == JOptionPane.YES_OPTION) {
-        // Jika pengguna memilih "Ya"
-        JOptionPane.showMessageDialog(this, "Pembelian berhasil diproses!");
-    } else if (pilihan == JOptionPane.NO_OPTION) {
-        // Jika pengguna memilih "Tidak"
-        JOptionPane.showMessageDialog(this, "Pembelian dibatalkan.");
+            this, // Frame induk untuk dialog
+            "Apakah Anda yakin ingin membeli? Total harga: " + total, // Menampilkan total harga
+            "Konfirmasi Pembelian", // Judul dialog
+            JOptionPane.YES_NO_OPTION, // Tipe opsi
+            JOptionPane.QUESTION_MESSAGE // Tipe pesan
+        );
+        
+        // Mengecek hasil dari dialog konfirmasi
+        if (pilihan == JOptionPane.YES_OPTION) {
+            // Jika pengguna memilih "Ya"
+            JOptionPane.showMessageDialog(this, "Pembelian berhasil diproses! Total harga: " + total);
+          
+            stok -= jumlahBarang; // Mengurangi stok barang yang dibeli
+                
+                // Update nilai stok di TextField
+            jjumlahbrg.setText(String.valueOf(stok));
+        
+        } else if (pilihan == JOptionPane.NO_OPTION) {
+            // Jika pengguna memilih "Tidak"
+            JOptionPane.showMessageDialog(this, "Pembelian dibatalkan.");
+        }
+    } catch (NumberFormatException e) {
+        // Jika input bukan angka yang valid
+        JOptionPane.showMessageDialog(this, "Pastikan jumlah dan harga valid!", "Error", JOptionPane.ERROR_MESSAGE);
     }
+        this.dispose();
+        EcommersMain ecommersMain = new EcommersMain();
+        ecommersMain.setVisible(true);
     }//GEN-LAST:event_jbeliActionPerformed
 
     private void jnamabrgFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jnamabrgFocusLost
@@ -395,7 +387,7 @@ private static int stok1;
         // Ambil nilai stok dari JTextField
         int stok = Integer.parseInt(jjumlahbrg.getText());
         
-        if (stok < stok1) { // Pastikan stok tidak negatif
+        if (stok < stok1) { 
             stok += 1;
         } else {
             JOptionPane.showMessageDialog(this, "Jumlah barang tidak boleh lebih dari stok yang tersedia!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -403,6 +395,7 @@ private static int stok1;
 
         // Set nilai baru ke JTextField
         jjumlahbrg.setText(String.valueOf(stok));
+             
     } catch (NumberFormatException e) {
         // Jika stok bukan angka valid, tampilkan pesan error
         JOptionPane.showMessageDialog(this, "Nilai stok tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -412,10 +405,6 @@ private static int stok1;
     private void jjumlahbrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jjumlahbrgActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jjumlahbrgActionPerformed
-
-    private void totalbeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalbeliActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_totalbeliActionPerformed
     
 
     public KonfirmasiPanel() throws HeadlessException {
@@ -435,27 +424,27 @@ private static int stok1;
     public void setHargaBarang (double harga) {
         jhargabrg.setText(String.valueOf(harga));
     }
-
-    public void setTotalHarga() {
-    try {
-        // Ambil harga barang dari jhargabrg (dianggap sebagai JTextField)
-        int harga = Integer.parseInt(jhargabrg.getText());  
-
-        // Ambil jumlah barang dari jjumlahbrg
-        int jumlah = Integer.parseInt(jjumlahbrg.getText());
-
-        // Hitung total harga
-        int total = harga * jumlah;
-
-        // Set hasil ke komponen totalbeli (TextField untuk menampilkan total harga)
-        totalbeli.setText(String.valueOf(total));
-    } catch (NumberFormatException e) {
-        // Tangani error jika input tidak valid
-        JOptionPane.showMessageDialog(this, "Input tidak valid untuk harga atau jumlah!", "Error", JOptionPane.ERROR_MESSAGE);
+    
+    public void setJumlah (int stok) {
+        jjumlahbrg.setText(String.valueOf(stok));
     }
-     
+    
+    public int setStokBarang() {
+        int jumlahBarang = Integer.parseInt(jjumlahbrg.getText());
+        double hargaBarang = Double.parseDouble(jhargabrg.getText());
+        int stoksisa = stok1 - jumlahBarang;
+        
+        return stoksisa;
+    }
+    
+  
+    
 
-}
+
+   
+
+
+
 
 // Fungsi untuk mendapatkan harga barang, misalnya
 
@@ -485,7 +474,5 @@ private static int stok1;
     private javax.swing.JTextField jhargabrg;
     private javax.swing.JTextField jjumlahbrg;
     private javax.swing.JTextField jnamabrg;
-    private javax.swing.JLabel jtextfil;
-    private javax.swing.JTextField totalbeli;
     // End of variables declaration//GEN-END:variables
 }
