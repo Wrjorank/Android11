@@ -5,6 +5,7 @@
 package android.view;
 
 import android.repository.IRepoProduk;
+import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,7 +15,7 @@ import javax.swing.JOptionPane;
 public class KonfirmasiPanel extends javax.swing.JFrame {
  private final IRepoProduk repo;
         private final Runnable callback;
-
+private static int stok1;
     /**
      * Creates new form BuyingPanel
      */
@@ -25,8 +26,20 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
         
         
         initComponents();
+        jjumlahbrg.setText("1");
+      
+         
     }
 
+        public static int getStok() {
+            return stok1;
+        }
+
+        // Setter untuk user ID
+        public static void setStok(int stokmax) {
+            stok1 = stokmax;
+        }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,9 +62,11 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jbeli = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jbrgtambah = new javax.swing.JButton();
+        jbrgkurang = new javax.swing.JButton();
         jjumlahbrg = new javax.swing.JTextField();
+        jtextfil = new javax.swing.JLabel();
+        totalbeli = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -106,7 +121,7 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
         jLabel4.setText("Nama Barang");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel5.setText("Harga (Rp)");
+        jLabel5.setText("Harga/Barang (Rp)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -121,24 +136,24 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
                 .addContainerGap(102, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(158, 158, 158)
+                .addGap(136, 136, 136)
                 .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(14, 14, 14)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jnamabrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jdeskripsibrg, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jhargabrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(25, 38, 65));
@@ -188,49 +203,86 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setText("+");
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.setBorderPainted(false);
-
-        jButton2.setBackground(new java.awt.Color(204, 204, 204));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setText("-");
-        jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton2.setBorderPainted(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jbrgtambah.setBackground(new java.awt.Color(204, 204, 204));
+        jbrgtambah.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbrgtambah.setText("+");
+        jbrgtambah.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbrgtambah.setBorderPainted(false);
+        jbrgtambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jbrgtambahActionPerformed(evt);
+            }
+        });
+
+        jbrgkurang.setBackground(new java.awt.Color(204, 204, 204));
+        jbrgkurang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jbrgkurang.setText("-");
+        jbrgkurang.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jbrgkurang.setBorderPainted(false);
+        jbrgkurang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbrgkurangActionPerformed(evt);
             }
         });
 
         jjumlahbrg.setBackground(new java.awt.Color(242, 242, 242));
         jjumlahbrg.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jjumlahbrg.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jjumlahbrg.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jjumlahbrg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jjumlahbrgActionPerformed(evt);
+            }
+        });
+
+        jtextfil.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jtextfil.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jtextfil.setText("Total");
+
+        totalbeli.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        totalbeli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                totalbeliActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jjumlahbrg)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jbrgkurang, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jjumlahbrg)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbrgtambah, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(126, 126, 126)
+                                .addComponent(totalbeli, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(175, 175, 175)
+                                .addComponent(jtextfil)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jjumlahbrg, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jbrgtambah, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbrgkurang, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jjumlahbrg))
+                .addGap(18, 18, 18)
+                .addComponent(jtextfil)
+                .addGap(20, 20, 20)
+                .addComponent(totalbeli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
         );
 
         jPanel5.setBackground(new java.awt.Color(25, 38, 65));
@@ -265,18 +317,18 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -285,9 +337,25 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jbrgkurangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbrgkurangActionPerformed
+        try {
+        // Ambil nilai stok dari JTextField
+        int stok = Integer.parseInt(jjumlahbrg.getText());
+        
+        // Kurangi 1 pada stok
+        if (stok > 1) { // Pastikan stok tidak negatif
+            stok -= 1;
+        } else {
+            JOptionPane.showMessageDialog(this, "Jumlah barang tidak boleh kurang dari 1!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        // Set nilai baru ke JTextField
+        jjumlahbrg.setText(String.valueOf(stok));
+    } catch (NumberFormatException e) {
+        // Jika stok bukan angka valid, tampilkan pesan error
+        JOptionPane.showMessageDialog(this, "Nilai stok tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_jbrgkurangActionPerformed
 
     private void jdeskripsibrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jdeskripsibrgActionPerformed
         // TODO add your handling code here:
@@ -322,6 +390,39 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jnamabrgFocusLost
 
+    private void jbrgtambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbrgtambahActionPerformed
+         try {
+        // Ambil nilai stok dari JTextField
+        int stok = Integer.parseInt(jjumlahbrg.getText());
+        
+        if (stok < stok1) { // Pastikan stok tidak negatif
+            stok += 1;
+        } else {
+            JOptionPane.showMessageDialog(this, "Jumlah barang tidak boleh lebih dari stok yang tersedia!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        // Set nilai baru ke JTextField
+        jjumlahbrg.setText(String.valueOf(stok));
+    } catch (NumberFormatException e) {
+        // Jika stok bukan angka valid, tampilkan pesan error
+        JOptionPane.showMessageDialog(this, "Nilai stok tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_jbrgtambahActionPerformed
+
+    private void jjumlahbrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jjumlahbrgActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jjumlahbrgActionPerformed
+
+    private void totalbeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalbeliActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_totalbeliActionPerformed
+    
+
+    public KonfirmasiPanel() throws HeadlessException {
+        this.repo = null;
+        this.callback = null;
+    }
+
     public void setNamaBarang (String nama) {
         jnamabrg.setText(nama);
        
@@ -334,6 +435,31 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
     public void setHargaBarang (double harga) {
         jhargabrg.setText(String.valueOf(harga));
     }
+
+    public void setTotalHarga() {
+    try {
+        // Ambil harga barang dari jhargabrg (dianggap sebagai JTextField)
+        int harga = Integer.parseInt(jhargabrg.getText());  
+
+        // Ambil jumlah barang dari jjumlahbrg
+        int jumlah = Integer.parseInt(jjumlahbrg.getText());
+
+        // Hitung total harga
+        int total = harga * jumlah;
+
+        // Set hasil ke komponen totalbeli (TextField untuk menampilkan total harga)
+        totalbeli.setText(String.valueOf(total));
+    } catch (NumberFormatException e) {
+        // Tangani error jika input tidak valid
+        JOptionPane.showMessageDialog(this, "Input tidak valid untuk harga atau jumlah!", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+     
+
+}
+
+// Fungsi untuk mendapatkan harga barang, misalnya
+
+
     /**
      * @param args the command line arguments
      */
@@ -341,8 +467,6 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -355,9 +479,13 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JButton jbeli;
+    private javax.swing.JButton jbrgkurang;
+    private javax.swing.JButton jbrgtambah;
     private javax.swing.JTextField jdeskripsibrg;
     private javax.swing.JTextField jhargabrg;
     private javax.swing.JTextField jjumlahbrg;
     private javax.swing.JTextField jnamabrg;
+    private javax.swing.JLabel jtextfil;
+    private javax.swing.JTextField totalbeli;
     // End of variables declaration//GEN-END:variables
 }
