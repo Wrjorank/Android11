@@ -4,6 +4,7 @@
  */
 package android.view;
 
+import android.model.ProdukModel;
 import android.repository.IRepoProduk;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
@@ -363,14 +364,13 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jbeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbeliActionPerformed
-        try {
+       try {
         // Ambil nilai dari inputan pengguna
-        int jumlahBarang = Integer.parseInt(jjumlahbrg.getText());
-        double hargaBarang = Double.parseDouble(jhargabrg.getText());
-        int stok = Integer.parseInt(jstok.getText());
+        int jumlahBarang = Integer.parseInt(jjumlahbrg.getText()); // Jumlah barang yang dibeli
+        double hargaBarang = Double.parseDouble(jhargabrg.getText()); // Harga per barang
         String namaBarang = jnamabrg.getText(); // Nama barang dari input pengguna
 
-        // Hitung total beli
+        // Hitung total harga beli
         double total = jumlahBarang * hargaBarang;
 
         // Tampilkan total harga di pesan konfirmasi
@@ -384,23 +384,77 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
 
         // Proses jika pembelian dikonfirmasi
         if (pilihan == JOptionPane.YES_OPTION) {
-            if (kurangiStokDanUpdateBarangTerjual(namaBarang, jumlahBarang)) {
-                JOptionPane.showMessageDialog(this, "Pembelian berhasil diproses! Total harga: " + total);
+            // Cek saldo terlebih dahulu
+            if (cekSaldoDanKurangi(total)) {
+                // Jika saldo cukup, lanjutkan dengan pengurangan stok dan update barang terjual
+                if (kurangiStokDanUpdateBarangTerjual(namaBarang, jumlahBarang)) {
+                    JOptionPane.showMessageDialog(this, "Pembelian berhasil diproses! Total harga: " + total);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Stok tidak mencukupi atau barang tidak ditemukan!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Stok tidak mencukupi atau barang tidak ditemukan!", "Error", JOptionPane.ERROR_MESSAGE);
+                // Jika saldo tidak cukup
+                JOptionPane.showMessageDialog(this, "Saldo tidak mencukupi untuk pembelian ini!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else if (pilihan == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(this, "Pembelian dibatalkan.");
         }
     } catch (NumberFormatException e) {
+        // Tangani kesalahan jika input bukan angka yang valid
         JOptionPane.showMessageDialog(this, "Pastikan jumlah dan harga valid!", "Error", JOptionPane.ERROR_MESSAGE);
     } finally {
+        // Menutup frame saat selesai dan membuka frame utama
         this.dispose();
         EcommersMain ecommersMain = new EcommersMain();
         ecommersMain.setVisible(true);
-    }
+ }
      
     }//GEN-LAST:event_jbeliActionPerformed
+    private boolean cekSaldoDanKurangi(double totalHarga) {
+    String url = "jdbc:mariadb://localhost:3306/proyek_register"; // Ganti dengan nama database Anda
+    String username = "root"; // Ganti dengan username database Anda
+    String password = ""; // Ganti dengan password database Anda
+
+    String queryCekSaldo = "SELECT saldo FROM saldo WHERE id = ?";
+    String queryUpdateSaldo = "UPDATE saldo SET saldo = saldo - ? WHERE id = ?";
+
+    try (Connection conn = DriverManager.getConnection(url, username, password)) {
+        // Ambil ID pengguna yang sedang login, misalnya ID yang saat ini aktif
+        int userId = ProdukModel.getUserIDByUsername(username);
+
+        // Cek saldo pengguna
+        try (PreparedStatement cekSaldoStmt = conn.prepareStatement(queryCekSaldo)) {
+            cekSaldoStmt.setInt(1, userId);
+            try (ResultSet rs = cekSaldoStmt.executeQuery()) {
+                if (rs.next()) {
+                    double saldoTersedia = rs.getDouble("saldo"); // Ambil saldo pengguna
+
+                    // Cek apakah saldo cukup untuk pembelian
+                    if (saldoTersedia >= totalHarga) {
+                        // Update saldo
+                        try (PreparedStatement updateSaldoStmt = conn.prepareStatement(queryUpdateSaldo)) {
+                            updateSaldoStmt.setDouble(1, totalHarga); // Kurangi saldo sesuai total harga
+                            updateSaldoStmt.setInt(2, userId);
+                            updateSaldoStmt.executeUpdate();
+                            return true; // Pembelian berhasil
+                        }
+                    } else {
+                        System.out.println("Saldo tidak mencukupi.");
+                        return false; // Saldo tidak cukup
+                    }
+                } else {
+                    System.out.println("Saldo tidak ditemukan.");
+                    return false; // Saldo tidak ditemukan
+                }
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false; // Terjadi kesalahan saat mengakses database
+    }
+}
+    
+    
     private boolean kurangiStokDanUpdateBarangTerjual(String namaBarang, int jumlahBarangDibeli) {
     String url = "jdbc:mariadb://localhost:3306/proyek_register"; // Ganti dengan nama database Anda
     String username = "root"; // Ganti dengan username database Anda
