@@ -170,6 +170,10 @@ public class BuyingPanel extends javax.swing.JPanel {
     contentPanel.repaint();
 }
      
+     //    public void setStok (int stok) {
+//        totalHarga.setText(String.valueOf(stok));
+//    }
+     
      private void handleBeli(Produk produk) {
     KonfirmasiPanel konfirPanel = new KonfirmasiPanel(repo, callback);
     konfirPanel.setNamaBarang(produk.getnamaBarang());
@@ -193,6 +197,7 @@ public class BuyingPanel extends javax.swing.JPanel {
     if (window instanceof JFrame) {
         ((JFrame) window).dispose();
     }
+
 }
 
     /**

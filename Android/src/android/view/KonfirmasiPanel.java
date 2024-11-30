@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class KonfirmasiPanel extends javax.swing.JFrame {
         private final IRepoProduk repo;
         private final Runnable callback;
-        private static int stokMax;
+        private static int stok1;
     /**
      * Creates new form BuyingPanel
      */
@@ -36,9 +36,12 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
       
          
     }
+    
+    public void setStok(int stokmax) {
+            stok1 = stokmax;
+    }
 
-        
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,7 +61,7 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         labelstok = new javax.swing.JLabel();
-        jstok = new javax.swing.JTextField();
+        totalHarga = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jbeli = new javax.swing.JButton();
@@ -124,38 +127,34 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
 
         labelstok.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         labelstok.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelstok.setText("Stok");
+        labelstok.setText("Harga Total");
 
-        jstok.setEditable(false);
-        jstok.setBackground(new java.awt.Color(242, 242, 242));
-        jstok.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-        jstok.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jstok.setToolTipText("");
+        totalHarga.setEditable(false);
+        totalHarga.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        totalHarga.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        totalHarga.setToolTipText("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(142, 142, 142))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(168, 168, 168)
+                .addComponent(labelstok)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jdeskripsibrg)
                     .addComponent(jhargabrg)
                     .addComponent(jnamabrg)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                    .addComponent(totalHarga))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(142, 142, 142))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(164, 164, 164)
-                .addComponent(jstok, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(labelstok)
-                .addGap(185, 185, 185))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,7 +172,7 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(labelstok)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jstok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(totalHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -335,22 +334,27 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
     private void jbrgkurangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbrgkurangActionPerformed
         try {
         // Ambil nilai stok dari JTextField
-        int jumlahbeli = Integer.parseInt(jjumlahbrg.getText());
+        int stok = Integer.parseInt(jjumlahbrg.getText());
         
         // Kurangi 1 pada stok
-        if (jumlahbeli > 1) { // Pastikan stok tidak negatif
-            jumlahbeli -= 1;
+        if (stok > 1) { // Pastikan stok tidak negatif
+            stok -= 1;
         } else {
             JOptionPane.showMessageDialog(this, "Jumlah barang tidak boleh kurang dari 1!", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         // Set nilai baru ke JTextField
-        jjumlahbrg.setText(String.valueOf(jumlahbeli));
+        jjumlahbrg.setText(String.valueOf(stok));
          
     } catch (NumberFormatException e) {
         // Jika stok bukan angka valid, tampilkan pesan error
         JOptionPane.showMessageDialog(this, "Nilai stok tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
     }
+     
+     double value1 = Double.parseDouble(jhargabrg.getText());
+     double value2 = Double.parseDouble(jjumlahbrg.getText());
+
+     totalHarga.setText(String.valueOf(value1 * value2));
     }//GEN-LAST:event_jbrgkurangActionPerformed
 
     private void jdeskripsibrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jdeskripsibrgActionPerformed
@@ -364,98 +368,54 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jbeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbeliActionPerformed
-       try {
-        // Ambil nilai dari inputan pengguna
-        int jumlahBarang = Integer.parseInt(jjumlahbrg.getText()); // Jumlah barang yang dibeli
-        double hargaBarang = Double.parseDouble(jhargabrg.getText()); // Harga per barang
-        String namaBarang = jnamabrg.getText(); // Nama barang dari input pengguna
+    try {
+        // Ambil nilai jumlah barang dan harga barang
+        double value1 = Double.parseDouble(jhargabrg.getText());
+        double value2 = Double.parseDouble(jjumlahbrg.getText());
 
-        // Hitung total harga beli
-        double total = jumlahBarang * hargaBarang;
-
+        double totalHarga = value1 * value2; 
+        
+        int jumlahBarang = Integer.parseInt(jjumlahbrg.getText());
+        String namaBarang = jnamabrg.getText(); // Nama barang
+        int stok = Integer.parseInt(jjumlahbrg.getText());
+        
         // Tampilkan total harga di pesan konfirmasi
         int pilihan = JOptionPane.showConfirmDialog(
             this, // Frame induk untuk dialog
-            "Apakah Anda yakin ingin membeli? Total harga: " + total, // Menampilkan total harga
+            "Apakah Anda yakin ingin membeli? Total harga: " + totalHarga, // Menampilkan total harga
             "Konfirmasi Pembelian", // Judul dialog
             JOptionPane.YES_NO_OPTION, // Tipe opsi
             JOptionPane.QUESTION_MESSAGE // Tipe pesan
         );
-
-        // Proses jika pembelian dikonfirmasi
+        
+        // Mengecek hasil dari dialog konfirmasi
         if (pilihan == JOptionPane.YES_OPTION) {
-            // Cek saldo terlebih dahulu
-            if (cekSaldoDanKurangi(total)) {
-                // Jika saldo cukup, lanjutkan dengan pengurangan stok dan update barang terjual
-                if (kurangiStokDanUpdateBarangTerjual(namaBarang, jumlahBarang)) {
-                    JOptionPane.showMessageDialog(this, "Pembelian berhasil diproses! Total harga: " + total);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Stok tidak mencukupi atau barang tidak ditemukan!", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+            // Jika pengguna memilih "Ya", kurangi stok di database
+            boolean berhasil = kurangiStokDanUpdateBarangTerjual(namaBarang, jumlahBarang);
+            if (berhasil) {
+                JOptionPane.showMessageDialog(this, "Pembelian berhasil diproses! Total harga: " + totalHarga);
+                
+                // Update stok yang tersisa di UI
+                stok -= jumlahBarang;
+                jjumlahbrg.setText(String.valueOf(stok));
             } else {
                 // Jika saldo tidak cukup
                 JOptionPane.showMessageDialog(this, "Saldo tidak mencukupi untuk pembelian ini!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else if (pilihan == JOptionPane.NO_OPTION) {
+            // Jika pengguna memilih "Tidak"
             JOptionPane.showMessageDialog(this, "Pembelian dibatalkan.");
         }
     } catch (NumberFormatException e) {
-        // Tangani kesalahan jika input bukan angka yang valid
+
+        // Jika input bukan angka yang valid
         JOptionPane.showMessageDialog(this, "Pastikan jumlah dan harga valid!", "Error", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        // Menutup frame saat selesai dan membuka frame utama
-        this.dispose();
-        EcommersMain ecommersMain = new EcommersMain();
-        ecommersMain.setVisible(true);
- }
-     
-    }//GEN-LAST:event_jbeliActionPerformed
-    private boolean cekSaldoDanKurangi(double totalHarga) {
-    String url = "jdbc:mariadb://localhost:3306/proyek_register"; // Ganti dengan nama database Anda
-    String username = "root"; // Ganti dengan username database Anda
-    String password = ""; // Ganti dengan password database Anda
-
-    String queryCekSaldo = "SELECT saldo FROM saldo WHERE id = ?";
-    String queryUpdateSaldo = "UPDATE saldo SET saldo = saldo - ? WHERE id = ?";
-
-    try (Connection conn = DriverManager.getConnection(url, username, password)) {
-        // Ambil ID pengguna yang sedang login, misalnya ID yang saat ini aktif
-        int userId = ProdukModel.getUserIDByUsername(username);
-
-        // Cek saldo pengguna
-        try (PreparedStatement cekSaldoStmt = conn.prepareStatement(queryCekSaldo)) {
-            cekSaldoStmt.setInt(1, userId);
-            try (ResultSet rs = cekSaldoStmt.executeQuery()) {
-                if (rs.next()) {
-                    double saldoTersedia = rs.getDouble("saldo"); // Ambil saldo pengguna
-
-                    // Cek apakah saldo cukup untuk pembelian
-                    if (saldoTersedia >= totalHarga) {
-                        // Update saldo
-                        try (PreparedStatement updateSaldoStmt = conn.prepareStatement(queryUpdateSaldo)) {
-                            updateSaldoStmt.setDouble(1, totalHarga); // Kurangi saldo sesuai total harga
-                            updateSaldoStmt.setInt(2, userId);
-                            updateSaldoStmt.executeUpdate();
-                            return true; // Pembelian berhasil
-                        }
-                    } else {
-                        System.out.println("Saldo tidak mencukupi.");
-                        return false; // Saldo tidak cukup
-                    }
-                } else {
-                    System.out.println("Saldo tidak ditemukan.");
-                    return false; // Saldo tidak ditemukan
-                }
-            }
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-        return false; // Terjadi kesalahan saat mengakses database
     }
-}
-    
-    
-    private boolean kurangiStokDanUpdateBarangTerjual(String namaBarang, int jumlahBarangDibeli) {
+    this.dispose();
+    EcommersMain ecommersMain = new EcommersMain();
+    ecommersMain.setVisible(true);
+    }//GEN-LAST:event_jbeliActionPerformed
+private boolean kurangiStokDanUpdateBarangTerjual(String namaBarang, int jumlahBarangDibeli) {
     String url = "jdbc:mariadb://localhost:3306/proyek_register"; // Ganti dengan nama database Anda
     String username = "root"; // Ganti dengan username database Anda
     String password = ""; // Ganti dengan password database Anda
@@ -495,6 +455,9 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
         return false;
     }
 }
+                                       
+                                      
+    
     private void jnamabrgFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jnamabrgFocusLost
 
     }//GEN-LAST:event_jnamabrgFocusLost
@@ -502,24 +465,19 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
 
 
     private void jbrgtambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbrgtambahActionPerformed
-         try {
-        // Ambil nilai stok dari JTextField
-        int jumlahbeli = Integer.parseInt(jjumlahbrg.getText());
-        int maxbeli = Integer.parseInt(jstok.getText());
-        
-        if (jumlahbeli < maxbeli) { 
-            jumlahbeli += 1;
-        } else {
-            JOptionPane.showMessageDialog(this, "Jumlah barang tidak boleh lebih dari stok yang tersedia!", "Error", JOptionPane.ERROR_MESSAGE);
+    try {
+            int stok = Integer.parseInt(jjumlahbrg.getText());
+            if (stok < stok1) {
+                stok += 1;
+                jjumlahbrg.setText(String.valueOf(stok));
+                double value1 = Double.parseDouble(jhargabrg.getText());
+                totalHarga.setText(String.valueOf(value1 * stok));
+            } else {
+                JOptionPane.showMessageDialog(this, "Jumlah barang tidak boleh lebih dari stok yang tersedia!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Nilai stok tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        // Set nilai baru ke JTextField
-        jjumlahbrg.setText(String.valueOf(jumlahbeli));
-             
-    } catch (NumberFormatException e) {
-        // Jika stok bukan angka valid, tampilkan pesan error
-        JOptionPane.showMessageDialog(this, "Nilai stok tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
-    }
     }//GEN-LAST:event_jbrgtambahActionPerformed
 
     private void jjumlahbrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jjumlahbrgActionPerformed
@@ -545,15 +503,67 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
         jhargabrg.setText(String.valueOf(harga));
     }
     
+        private void setStokBarangDariDatabase(String namaBarang) {
+        String url = "jdbc:mariadb://localhost:3306/proyek_register";
+        String username = "root";
+        String password = "";
+
+        String query = "SELECT stokBarang FROM Produk WHERE namaBarang = ?";
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, namaBarang);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int stokTersedia = rs.getInt("stokBarang");
+                    stok1 = stokTersedia;
+                    jjumlahbrg.setText(String.valueOf(stokTersedia));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Gagal mengambil stok dari database.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+        
+    private void setBarangTerjualDariDatabase(String namaBarang) {
+        String url = "jdbc:mariadb://localhost:3306/proyek_register";
+        String username = "root";
+        String password = "";
+
+        String query = "SELECT barangTerjual FROM Produk WHERE namaBarang = ?";
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, namaBarang);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int barangTerjual = rs.getInt("barangTerjual");
+                    labelstok.setText("Terjual: " + barangTerjual);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Gagal mengambil data barang terjual dari database.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     public void setJumlah (int jumlah) {
         jjumlahbrg.setText(String.valueOf(jumlah));
     }
     
-    public void setStok (int stok) {
-        jstok.setText(String.valueOf(stok));
-    }
     
-   
+     public int setStokBarang() {
+        int jumlahBarang = Integer.parseInt(jjumlahbrg.getText());
+        double hargaBarang = Double.parseDouble(jhargabrg.getText());
+        int stoksisa = stok1 - jumlahBarang;
+        
+        return stoksisa;
+    }
+
+    public JTextField getstokBarang() {
+    return this.jjumlahbrg;
+}  
     
     public int getJumlahBarangDibeli() {
     try {
@@ -594,7 +604,7 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
     private javax.swing.JTextField jhargabrg;
     private javax.swing.JTextField jjumlahbrg;
     private javax.swing.JTextField jnamabrg;
-    private javax.swing.JTextField jstok;
     private javax.swing.JLabel labelstok;
+    private javax.swing.JTextField totalHarga;
     // End of variables declaration//GEN-END:variables
 }

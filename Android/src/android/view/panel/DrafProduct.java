@@ -212,6 +212,7 @@ public class DrafProduct extends javax.swing.JPanel {
         if (updated) {
             JOptionPane.showMessageDialog(null, "Produk berhasil diperbarui!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
             callback.run();  // Memanggil callback untuk memperbarui tampilan
+            
         } else {
             JOptionPane.showMessageDialog(null, "Gagal memperbarui produk!", "Kesalahan", JOptionPane.ERROR_MESSAGE);
         }
