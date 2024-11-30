@@ -59,7 +59,7 @@ private void loadUserDetails() {
     try (Connection conn = DriverManager.getConnection(url, user, pass)) {
         // Query untuk mengambil data user dan saldo berdasarkan userID
         String query = """
-            SELECT r.username, r.namaDepan, r.namaBelakang, r.tanggalLahir, r.alamat, IFNULL(s.saldo, 0) AS saldo
+            SELECT r.id, r.username, r.namaDepan, r.namaBelakang, r.tanggalLahir, r.alamat, IFNULL(s.saldo, 0) AS saldo
             FROM register r
             LEFT JOIN saldo s ON r.id = s.id
             WHERE r.id = ?
@@ -76,6 +76,7 @@ private void loadUserDetails() {
                     String tanggalLahir = rs.getString("tanggalLahir");
                     String alamat = rs.getString("alamat");
                     double saldo = rs.getDouble("saldo");
+                    int idpengguna1 = rs.getInt("id");
 
                     // Log untuk debug
                     System.out.println("Data ditemukan: Username = " + username + ", Saldo = " + saldo);
@@ -87,6 +88,7 @@ private void loadUserDetails() {
                     LblakunTanggal.setText(tanggalLahir);
                     LblakunAlamat.setText(alamat);
                     jLabel3_saldo.setText("" + saldo);
+                    ID_pengguna.setText(String.valueOf(idpengguna1));
                 } else {
                     // Log untuk debug
                     System.out.println("Data tidak ditemukan untuk userID: " + userID);
@@ -98,6 +100,7 @@ private void loadUserDetails() {
                     LblakunTanggal.setText("Tidak ditemukan.");
                     LblakunAlamat.setText("Tidak ditemukan.");
                     jLabel3_saldo.setText("Tidak ditemukan.");
+                    ID_pengguna.setText("Tidak ditemukan.");
                 }
             }
         }
@@ -110,6 +113,7 @@ private void loadUserDetails() {
         LblakunTanggal.setText("");
         LblakunAlamat.setText("");
         jLabel3_saldo.setText("Error: Tidak dapat memuat saldo.");
+        ID_pengguna.setText("");
         e.printStackTrace();
     }
 }
@@ -185,6 +189,8 @@ private void loadUserDetails() {
         LblakunBelakang = new javax.swing.JLabel();
         LblakunTanggal = new javax.swing.JLabel();
         LblakunAlamat = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        ID_pengguna = new javax.swing.JLabel();
 
         jPanel3.setBackground(new java.awt.Color(51, 153, 255));
 
@@ -273,6 +279,10 @@ private void loadUserDetails() {
 
         LblakunAlamat.setText("-");
 
+        jLabel10.setText("ID Pengguna     :");
+
+        ID_pengguna.setText("-");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -281,9 +291,6 @@ private void loadUserDetails() {
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -319,7 +326,15 @@ private void loadUserDetails() {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel9)
                                         .addGap(0, 102, Short.MAX_VALUE))))
-                            .addComponent(jLabel3_saldo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(jLabel3_saldo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(25, 25, 25)
+                                .addComponent(ID_pengguna, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,7 +361,11 @@ private void loadUserDetails() {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(LblakunAlamat))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(ID_pengguna))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtJumlahSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTopUp)
@@ -439,6 +458,7 @@ private void loadUserDetails() {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ID_pengguna;
     private javax.swing.JLabel LblakunAlamat;
     private javax.swing.JLabel LblakunBelakang;
     private javax.swing.JLabel LblakunDepan;
@@ -446,6 +466,7 @@ private void loadUserDetails() {
     private javax.swing.JLabel LblakunUsername;
     private javax.swing.JButton btnTopUp;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel3_saldo;

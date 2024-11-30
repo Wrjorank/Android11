@@ -5,6 +5,7 @@
 package android.view;
 
 import android.model.ProdukModel;
+import android.model.sessionModel;
 import android.repository.IRepoProduk;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
@@ -62,6 +63,7 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         labelstok = new javax.swing.JLabel();
         totalHarga = new javax.swing.JTextField();
+        IDBarang = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jbeli = new javax.swing.JButton();
@@ -134,6 +136,10 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
         totalHarga.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         totalHarga.setToolTipText("");
 
+        IDBarang.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        IDBarang.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        IDBarang.setText("jTextField1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -155,25 +161,31 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                     .addComponent(totalHarga))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(161, 161, 161)
+                .addComponent(IDBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(IDBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jnamabrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jdeskripsibrg, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jdeskripsibrg, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jhargabrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(labelstok)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(totalHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(25, 38, 65));
@@ -368,54 +380,61 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jbeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbeliActionPerformed
-    try {
-        // Ambil nilai jumlah barang dan harga barang
+     try {
+        String idbarang = IDBarang.getText();
         double value1 = Double.parseDouble(jhargabrg.getText());
         double value2 = Double.parseDouble(jjumlahbrg.getText());
+        double totalHarga = value1 * value2;
 
-        double totalHarga = value1 * value2; 
-        
         int jumlahBarang = Integer.parseInt(jjumlahbrg.getText());
-        String namaBarang = jnamabrg.getText(); // Nama barang
-        int stok = Integer.parseInt(jjumlahbrg.getText());
-        
-        // Tampilkan total harga di pesan konfirmasi
-        int pilihan = JOptionPane.showConfirmDialog(
-            this, // Frame induk untuk dialog
-            "Apakah Anda yakin ingin membeli? Total harga: " + totalHarga, // Menampilkan total harga
-            "Konfirmasi Pembelian", // Judul dialog
-            JOptionPane.YES_NO_OPTION, // Tipe opsi
-            JOptionPane.QUESTION_MESSAGE // Tipe pesan
-        );
-        
-        // Mengecek hasil dari dialog konfirmasi
-        if (pilihan == JOptionPane.YES_OPTION) {
-            // Jika pengguna memilih "Ya", kurangi stok di database
-            boolean berhasil = kurangiStokDanUpdateBarangTerjual(namaBarang, jumlahBarang);
-            if (berhasil) {
-                JOptionPane.showMessageDialog(this, "Pembelian berhasil diproses! Total harga: " + totalHarga);
-                
-                // Update stok yang tersisa di UI
-                stok -= jumlahBarang;
-                jjumlahbrg.setText(String.valueOf(stok));
-            } else {
-                // Jika saldo tidak cukup
-                JOptionPane.showMessageDialog(this, "Saldo tidak mencukupi untuk pembelian ini!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else if (pilihan == JOptionPane.NO_OPTION) {
-            // Jika pengguna memilih "Tidak"
-            JOptionPane.showMessageDialog(this, "Pembelian dibatalkan.");
-        }
-    } catch (NumberFormatException e) {
+        String namaBarang = jnamabrg.getText();
 
-        // Jika input bukan angka yang valid
+        // Konfirmasi pembelian
+        int pilihan = JOptionPane.showConfirmDialog(
+            this, 
+            "Apakah Anda yakin ingin membeli? Total harga: " + totalHarga, 
+            "Konfirmasi Pembelian", 
+            JOptionPane.YES_NO_OPTION, 
+            JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (pilihan == JOptionPane.YES_OPTION) {
+            // Kurangi saldo pengguna
+            double saldoBaru = updateKurangSaldo(totalHarga);
+            if (saldoBaru == -1) {
+                JOptionPane.showMessageDialog(this, "Saldo Anda tidak cukup. Lakukan Top Up saldo lebih dulu!");
+                return;
+            }
+            
+            else{
+                // Kurangi stok dan update barang terjual
+                boolean berhasil = kurangiStokDanUpdateBarangTerjual(namaBarang, jumlahBarang);
+                updateTambahSaldo(idbarang, totalHarga);
+                
+                if (berhasil) {
+                    JOptionPane.showMessageDialog(this, "Pembelian berhasil diproses! Total harga: " + totalHarga);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Stok barang tidak mencukupi!", "Error", JOptionPane.ERROR_MESSAGE);
+
+                    // Kembalikan saldo jika stok tidak cukup
+
+                }
+            }
+            } else {
+                JOptionPane.showMessageDialog(this, "Pembelian dibatalkan.");
+            }
+    } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Pastikan jumlah dan harga valid!", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Terjadi kesalahan!", "Error", JOptionPane.ERROR_MESSAGE);
     }
-    this.dispose();
+        this.dispose();
     EcommersMain ecommersMain = new EcommersMain();
     ecommersMain.setVisible(true);
     }//GEN-LAST:event_jbeliActionPerformed
-private boolean kurangiStokDanUpdateBarangTerjual(String namaBarang, int jumlahBarangDibeli) {
+
+    private boolean kurangiStokDanUpdateBarangTerjual(String namaBarang, int jumlahBarangDibeli) {
     String url = "jdbc:mariadb://localhost:3306/proyek_register"; // Ganti dengan nama database Anda
     String username = "root"; // Ganti dengan username database Anda
     String password = ""; // Ganti dengan password database Anda
@@ -455,8 +474,95 @@ private boolean kurangiStokDanUpdateBarangTerjual(String namaBarang, int jumlahB
         return false;
     }
 }
-                                       
-                                      
+    
+    private double updateTambahSaldo(String username1, double upah) {
+        
+    int userID = repo.repoGetUserIDByUsername(username1);
+    String url = "jdbc:mariadb://localhost:3306/proyek_register";
+    String username = "root";
+    String password = "";
+
+    String queryCekSaldo = "SELECT saldo FROM saldo WHERE id = ?";
+    String queryUpdateSaldo = "UPDATE saldo SET saldo = saldo + ? WHERE id = ?";
+
+    try (Connection conn = DriverManager.getConnection(url, username, password)) {
+        // Cek saldo
+        try (PreparedStatement cekSaldoStmt = conn.prepareStatement(queryCekSaldo)) {
+            cekSaldoStmt.setInt(1, userID);
+            try (ResultSet rs = cekSaldoStmt.executeQuery()) {
+                if (rs.next()) {
+                    double saldoLama = rs.getDouble("saldo");
+
+                    // Update saldo
+                    try (PreparedStatement updateSaldoStmt = conn.prepareStatement(queryUpdateSaldo)) {
+                        updateSaldoStmt.setDouble(1, upah);
+                        updateSaldoStmt.setInt(2, userID);
+                        updateSaldoStmt.executeUpdate();
+
+                        // Kembalikan saldo baru
+                        return saldoLama + upah;
+                    }
+                } else {
+                    System.out.println("Barang tidak ditemukan di tabel saldo.");
+                    return -1; // Indikasi error
+                }
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        return -1; // Indikasi error koneksi atau query
+    }
+}
+    
+    
+    private double updateKurangSaldo(double upah) {
+        
+    int userID = sessionModel.getUserID();
+    String url = "jdbc:mariadb://localhost:3306/proyek_register";
+    String username = "root";
+    String password = "";
+
+    String queryCekSaldo = "SELECT saldo FROM saldo WHERE id = ?";
+    String queryUpdateSaldo = "UPDATE saldo SET saldo = saldo - ? WHERE id = ?";
+
+    try (Connection conn = DriverManager.getConnection(url, username, password)) {
+        // Cek saldo
+        try (PreparedStatement cekSaldoStmt = conn.prepareStatement(queryCekSaldo)) {
+            cekSaldoStmt.setInt(1, userID);
+            try (ResultSet rs = cekSaldoStmt.executeQuery()) {
+                if (rs.next()) {
+                    double saldoLama = rs.getDouble("saldo");
+                    
+                    if(saldoLama >= upah){
+                    // Update saldo
+                    try (PreparedStatement updateSaldoStmt = conn.prepareStatement(queryUpdateSaldo)) {
+                        updateSaldoStmt.setDouble(1, upah);
+                        updateSaldoStmt.setInt(2, userID);
+                        updateSaldoStmt.executeUpdate();
+
+                        // Kembalikan saldo baru
+                        return saldoLama - upah;
+                    }
+                } else {
+                    System.out.println("Upah tidak cukup.");
+                    return -1; // Indikasi error
+                    }
+                    
+                            }
+                else {
+                            System.out.println("Upah tidak cukup.");
+                    return 0; // Indikasi error
+                }
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        return -1; // Indikasi error koneksi atau query
+    }
+}
+    
+    
+                        
     
     private void jnamabrgFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jnamabrgFocusLost
 
@@ -490,6 +596,11 @@ private boolean kurangiStokDanUpdateBarangTerjual(String namaBarang, int jumlahB
         this.callback = null;
     }
 
+    public void setUserPenjual (String ID) {
+        IDBarang.setText(ID);
+       
+    }
+    
     public void setNamaBarang (String nama) {
         jnamabrg.setText(nama);
        
@@ -586,6 +697,7 @@ private boolean kurangiStokDanUpdateBarangTerjual(String namaBarang, int jumlahB
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField IDBarang;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
