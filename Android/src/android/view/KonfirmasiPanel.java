@@ -4,6 +4,7 @@
  */
 package android.view;
 
+import android.model.ProdukModel;
 import android.repository.IRepoProduk;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
@@ -398,13 +399,15 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
                 stok -= jumlahBarang;
                 jjumlahbrg.setText(String.valueOf(stok));
             } else {
-                JOptionPane.showMessageDialog(this, "Stok tidak mencukupi atau barang tidak ditemukan!", "Error", JOptionPane.ERROR_MESSAGE);
+                // Jika saldo tidak cukup
+                JOptionPane.showMessageDialog(this, "Saldo tidak mencukupi untuk pembelian ini!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else if (pilihan == JOptionPane.NO_OPTION) {
             // Jika pengguna memilih "Tidak"
             JOptionPane.showMessageDialog(this, "Pembelian dibatalkan.");
         }
     } catch (NumberFormatException e) {
+
         // Jika input bukan angka yang valid
         JOptionPane.showMessageDialog(this, "Pastikan jumlah dan harga valid!", "Error", JOptionPane.ERROR_MESSAGE);
     }
