@@ -6,6 +6,7 @@ package android.view.panel;
  */
 
 
+import android.model.sessionModel;
 import android.repository.IRepoProduk;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,7 +26,7 @@ public class AboutUser extends javax.swing.JPanel {
     
         private final IRepoProduk repo;
         private final Runnable callback;
-        private int userId; // Tambahkan variabel ini
+        private final int userId; // Tambahkan variabel ini
 
 
     /**
@@ -38,6 +39,7 @@ public class AboutUser extends javax.swing.JPanel {
     this.userId = userId;
 
     initComponents();
+    loadUserDetails();
 
     if (userId != -1) {
         fetchSaldo(); // Hanya panggil fetchSaldo jika userId valid
@@ -45,6 +47,73 @@ public class AboutUser extends javax.swing.JPanel {
         jLabel3_saldo.setText("Login untuk melihat saldo"); // Pesan default
     }
 }
+    
+// Tambahkan di class AboutUser
+private void loadUserDetails() {
+    String url = "jdbc:mariadb://localhost:3306/proyek_register";
+    String user = "root"; // Ganti dengan user database Anda
+    String pass = ""; // Ganti dengan password database Anda
+
+    int userID = sessionModel.getUserID(); // Ambil userID dari sessionModel
+
+    try (Connection conn = DriverManager.getConnection(url, user, pass)) {
+        // Query untuk mengambil data user dan saldo berdasarkan userID
+        String query = """
+            SELECT r.username, r.namaDepan, r.namaBelakang, r.tanggalLahir, r.alamat, IFNULL(s.saldo, 0) AS saldo
+            FROM register r
+            LEFT JOIN saldo s ON r.id = s.id
+            WHERE r.id = ?
+        """;
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, userID);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    // Ambil data dari result set
+                    String username = rs.getString("username");
+                    String namaDepan = rs.getString("namaDepan");
+                    String namaBelakang = rs.getString("namaBelakang");
+                    String tanggalLahir = rs.getString("tanggalLahir");
+                    String alamat = rs.getString("alamat");
+                    double saldo = rs.getDouble("saldo");
+
+                    // Log untuk debug
+                    System.out.println("Data ditemukan: Username = " + username + ", Saldo = " + saldo);
+
+                    // Tampilkan data di label
+                    LblakunUsername.setText(username);
+                    LblakunDepan.setText(namaDepan);
+                    LblakunBelakang.setText(namaBelakang);
+                    LblakunTanggal.setText(tanggalLahir);
+                    LblakunAlamat.setText(alamat);
+                    jLabel3_saldo.setText("" + saldo);
+                } else {
+                    // Log untuk debug
+                    System.out.println("Data tidak ditemukan untuk userID: " + userID);
+
+                    // Jika data tidak ditemukan
+                    LblakunUsername.setText("Tidak ditemukan.");
+                    LblakunDepan.setText("Tidak ditemukan.");
+                    LblakunBelakang.setText("Tidak ditemukan.");
+                    LblakunTanggal.setText("Tidak ditemukan.");
+                    LblakunAlamat.setText("Tidak ditemukan.");
+                    jLabel3_saldo.setText("Tidak ditemukan.");
+                }
+            }
+        }
+    } catch (Exception e) {
+        // Jika ada error, tampilkan pesan error
+        System.out.println("Error saat memuat data: " + e.getMessage());
+        LblakunUsername.setText("Error: Gagal memuat data.");
+        LblakunDepan.setText("");
+        LblakunBelakang.setText("");
+        LblakunTanggal.setText("");
+        LblakunAlamat.setText("");
+        jLabel3_saldo.setText("Error: Tidak dapat memuat saldo.");
+        e.printStackTrace();
+    }
+}
+
         
      
     
@@ -64,13 +133,13 @@ public class AboutUser extends javax.swing.JPanel {
                 try (ResultSet rs = stmt.executeQuery()) {
                     if (rs.next()) {
                         // Ambil nilai saldo dari database
-                        double saldo = rs.getDouble("saldo");
+                       // double saldo = rs.getDouble("saldo");
 
                         // Tampilkan saldo di label
-                        jLabel3_saldo.setText(String.valueOf(saldo));
+                        //jLabel3_saldo.setText(String.valueOf(saldo));
                     } else {
                         // Jika saldo tidak ditemukan
-                        jLabel3_saldo.setText("0");
+                       // jLabel3_saldo.setText("0");
                     }
                 }
             }

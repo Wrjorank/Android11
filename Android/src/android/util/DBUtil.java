@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBUtil {
-    private static final String URL = "jdbc:mariadb://localhost:3306/db_fasta";
+    private static final String URL = "jdbc:mariadb://localhost:3306/proyek_register";
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
