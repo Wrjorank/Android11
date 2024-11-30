@@ -7,6 +7,7 @@ package android.view;
 import android.repository.IRepoProduk;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -437,6 +438,10 @@ private static int stok1;
         return stoksisa;
     }
     
+    public JTextField getstokBarang() {
+    return this.jjumlahbrg;
+}
+
   
     
 
