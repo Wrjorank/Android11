@@ -407,9 +407,10 @@ try (Connection conn = DriverManager.getConnection(url, user, pass)) {
                 int userId = generatedKeys.getInt(1); // Ambil id yang baru dihasilkan
 
                 // Query untuk memasukkan data ke tabel saldo
-                String saldoSql = "INSERT INTO saldo (id, saldo) VALUES (?, 0)";
+                String saldoSql = "INSERT INTO saldo (id, username, saldo) VALUES (?, ?, 0)";
                 try (PreparedStatement saldoStmt = conn.prepareStatement(saldoSql)) {
                     saldoStmt.setInt(1, userId); // Gunakan id dari register
+                    saldoStmt.setString(2, username);
                     saldoStmt.executeUpdate();
                 }
 

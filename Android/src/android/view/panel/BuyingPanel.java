@@ -180,8 +180,9 @@ public class BuyingPanel extends javax.swing.JPanel {
     konfirPanel.setDeskripsiBarang(produk.getdeskripsi());
     konfirPanel.setHargaBarang(produk.getharga());
     konfirPanel.setStok(produk.getstokBarang());
+    int ID_produk = produk.getidBarang();
+    konfirPanel.setUserPenjual(ProdukModel.getUsernameByUserIDproduk(ID_produk));
     
-
     konfirPanel.setVisible(true);
 
     // Tangkap jumlah barang yang dibeli
