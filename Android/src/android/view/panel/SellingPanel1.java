@@ -182,6 +182,11 @@ public class SellingPanel1 extends javax.swing.JPanel {
         });
 
         kategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "Elektronik", "Fashion", "Kecantikan", "Perawatan Diri", "Peralatan Masak", "Perabot Rumah Tangga", "Dekorasi Rumah", "Alat Kebersihan", "Peralatan Penyimpanan", "Makanan dan Minuman", "Kesehatan", "Olahraga", "Otomotif", "Perlengkapan Sekolah", "Mainan dan Hobi", "Produk Digital", "Perlengkapan Bayi", "Peralatan dan Perbaikan Rumah", "Hewan dan Peliharaan", "Tiket dan Perjalanan" }));
+        kategori.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kategoriActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Kategori");
 
@@ -447,6 +452,10 @@ public class SellingPanel1 extends javax.swing.JPanel {
     // Callback jika berhasil
     callback.run();
     }//GEN-LAST:event_simpanButtonActionPerformed
+
+    private void kategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kategoriActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kategoriActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

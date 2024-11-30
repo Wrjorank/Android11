@@ -120,7 +120,7 @@ private void loadUserDetails() {
     private void fetchSaldo() {
     try {
         // Koneksi ke database
-        String url = "jdbc:mariadb://localhost:3306/proyek_register"; // Ganti sesuai konfigurasi
+        String url = "jdbc:mariadb://localhost:3306/db_fasta"; // Ganti sesuai konfigurasi
         String user = "root"; // Ganti dengan username database Anda
         String pass = "";     // Ganti dengan password database Anda
         
@@ -370,7 +370,7 @@ private void loadUserDetails() {
     private void btnTopUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTopUpActionPerformed
          // Koneksi ke database
     
-    String url = "jdbc:mariadb://localhost:3306/proyek_register";
+    String url = "jdbc:mariadb://localhost:3306/db_fasta";
     String user = "root";
     String pass = "";
     
