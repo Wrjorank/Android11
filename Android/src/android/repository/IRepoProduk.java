@@ -18,7 +18,7 @@ public interface IRepoProduk {
     
     boolean repoRemoveProduk(int id);
     
-    boolean repoUpdateProduk(int id, String namaBarang, double harga, String deskripsi, int stokBarang, int barangTerjual, String kategori);
+    boolean repoUpdateProduk(int id, String namaBarang, double harga, String deskripsi, int stokBarang, String kategori);
     
     Produk repoGetProdukById(int id);
     
