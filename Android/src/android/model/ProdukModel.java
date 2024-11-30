@@ -235,19 +235,17 @@ public class ProdukModel {
 }
 
 
-    // Update - Update a register entry by ID and return boolean
-    public static boolean updateProduk(int id, String namaBarang, double harga, String deskripsi, int stokBarang, int barangTerjual, String kategori) {
-    String query = "UPDATE produk SET namaBarang = ?, harga = ?, deskripsi = ?, stokBarang = ? WHERE ID_produk = ?";
+public static boolean updateProduk(int id, String namaBarang, double harga, String deskripsi, int stokBarang, String kategori) {
+    String query = "UPDATE produk SET namaBarang = ?, harga = ?, deskripsi = ?, stokBarang = ?, kategori = ? WHERE ID_produk = ?";
     try (java.sql.Connection conn = DBUtil.getConnection();
          PreparedStatement stmt = conn.prepareStatement(query)) {
 
-       stmt.setString(1, namaBarang);
+        stmt.setString(1, namaBarang);
         stmt.setDouble(2, harga);
         stmt.setString(3, deskripsi);
         stmt.setInt(4, stokBarang);
-        stmt.setInt(5, barangTerjual);
-        stmt.setString(6, kategori);
-        stmt.setInt(7, id);
+        stmt.setString(5, kategori); // Parameter kategori dimasukkan
+        stmt.setInt(6, id);          // Parameter ID produk dimasukkan
 
         int affectedRows = stmt.executeUpdate();
         return affectedRows > 0;
@@ -256,6 +254,7 @@ public class ProdukModel {
         return false;
     }
 }
+
 
     // Delete - Menghapus produk berdasarkan ID dan mengembalikan boolean
 public static boolean deleteProduk(int id) {

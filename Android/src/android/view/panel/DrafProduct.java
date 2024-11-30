@@ -167,13 +167,12 @@ public class DrafProduct extends javax.swing.JPanel {
     contentPanel.repaint();
 }
     
-    private void handleEdit(Produk produk) {
+  private void handleEdit(Produk produk) {
     // Menyiapkan dialog input untuk mengedit produk
     JTextField tfNamaBarang = new JTextField(produk.getnamaBarang());
     JTextField tfHarga = new JTextField(String.valueOf(produk.getharga()));
     JTextField tfDeskripsi = new JTextField(produk.getdeskripsi());
     JTextField tfStok = new JTextField(String.valueOf(produk.getstokBarang()));
-    JTextField tfTerjual = new JTextField(String.valueOf(produk.getbarangTerjual()));
 
     // Membuat JComboBox untuk kategori
     String[] kategoriOptions = { "Pilih", "Elektronik", "Fashion", "Kecantikan", "Perawatan Diri", "Peralatan Masak", 
@@ -184,7 +183,7 @@ public class DrafProduct extends javax.swing.JPanel {
     JComboBox<String> cbKategori = new JComboBox<>(kategoriOptions);
     cbKategori.setSelectedItem(produk.getkategori());  // Mengatur kategori yang ada pada produk ke dalam ComboBox
 
-    JPanel panel = new JPanel(new GridLayout(7, 2));  // Menambahkan satu baris untuk kategori
+    JPanel panel = new JPanel(new GridLayout(6, 2));  // Mengurangi satu baris untuk barangTerjual
     panel.add(new JLabel("Nama Barang:"));
     panel.add(tfNamaBarang);
     panel.add(new JLabel("Harga:"));
@@ -205,11 +204,10 @@ public class DrafProduct extends javax.swing.JPanel {
         double harga = Double.parseDouble(tfHarga.getText());
         String deskripsi = tfDeskripsi.getText();
         int stokBarang = Integer.parseInt(tfStok.getText());
-        int barangTerjual = Integer.parseInt(tfTerjual.getText());
         String kategori = (String) cbKategori.getSelectedItem();  // Mendapatkan kategori yang dipilih
 
-        // Memperbarui produk di repositori
-        boolean updated = repo1.repoUpdateProduk(produk.getidBarang(), namaBarang, harga, deskripsi, stokBarang, barangTerjual, kategori);
+        // Memperbarui produk di repositori tanpa mengupdate barangTerjual
+        boolean updated = repo1.repoUpdateProduk(produk.getidBarang(), namaBarang, harga, deskripsi, stokBarang, kategori);
 
         if (updated) {
             JOptionPane.showMessageDialog(null, "Produk berhasil diperbarui!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
@@ -219,6 +217,7 @@ public class DrafProduct extends javax.swing.JPanel {
         }
     }
 }
+
 
 
 private void handleDelete(Produk produk) {
