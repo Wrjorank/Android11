@@ -98,6 +98,16 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="142" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
+                  <Component id="labelstok" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
               <Group type="102" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -105,23 +115,9 @@
                       <Component id="jhargabrg" max="32767" attributes="0"/>
                       <Component id="jnamabrg" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel4" pref="185" max="32767" attributes="0"/>
+                      <Component id="totalHarga" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="142" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="164" max="-2" attributes="0"/>
-                  <Component id="jstok" min="-2" pref="71" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="labelstok" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="185" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -141,7 +137,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="labelstok" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jstok" min="-2" max="-2" attributes="0"/>
+                  <Component id="totalHarga" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="34" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -207,10 +203,10 @@
               <Font name="Segoe UI" size="12" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Stok"/>
+            <Property name="text" type="java.lang.String" value="Harga Total"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jstok">
+        <Component class="javax.swing.JTextField" name="totalHarga">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">

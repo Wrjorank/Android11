@@ -43,10 +43,6 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jLabel3_saldo" min="-2" pref="74" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="LblakunAlamat" alignment="0" max="32767" attributes="0"/>
                                   <Component id="LblakunTanggal" alignment="0" max="32767" attributes="0"/>
@@ -72,6 +68,7 @@
                                   </Group>
                               </Group>
                           </Group>
+                          <Component id="jLabel3_saldo" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>

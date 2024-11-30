@@ -170,12 +170,17 @@ public class BuyingPanel extends javax.swing.JPanel {
     contentPanel.repaint();
 }
      
+     //    public void setStok (int stok) {
+//        totalHarga.setText(String.valueOf(stok));
+//    }
+     
      private void handleBeli(Produk produk) {
     KonfirmasiPanel konfirPanel = new KonfirmasiPanel(repo, callback);
     konfirPanel.setNamaBarang(produk.getnamaBarang());
     konfirPanel.setDeskripsiBarang(produk.getdeskripsi());
     konfirPanel.setHargaBarang(produk.getharga());
     konfirPanel.setStok(produk.getstokBarang());
+    
 
     konfirPanel.setVisible(true);
 
@@ -192,6 +197,7 @@ public class BuyingPanel extends javax.swing.JPanel {
     if (window instanceof JFrame) {
         ((JFrame) window).dispose();
     }
+
 }
 
     /**
