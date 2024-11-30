@@ -13,15 +13,18 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 /**
@@ -165,43 +168,82 @@ public class DrafProduct extends javax.swing.JPanel {
 }
     
     private void handleEdit(Produk produk) {
-    
-    }
+    // Menyiapkan dialog input untuk mengedit produk
+    JTextField tfNamaBarang = new JTextField(produk.getnamaBarang());
+    JTextField tfHarga = new JTextField(String.valueOf(produk.getharga()));
+    JTextField tfDeskripsi = new JTextField(produk.getdeskripsi());
+    JTextField tfStok = new JTextField(String.valueOf(produk.getstokBarang()));
+    JTextField tfTerjual = new JTextField(String.valueOf(produk.getbarangTerjual()));
 
-    private void handleDelete(Produk produk) {
-        // Menampilkan dialog konfirmasi
-        int response = JOptionPane.showConfirmDialog(
-                null,
-                "Apakah Anda yakin ingin menghapus produk: \n" + produk.getnamaBarang()+ "?",
-                "Konfirmasi Hapus",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE
-        );
+    // Membuat JComboBox untuk kategori
+    String[] kategoriOptions = { "Pilih", "Elektronik", "Fashion", "Kecantikan", "Perawatan Diri", "Peralatan Masak", 
+        "Perabot Rumah Tangga", "Dekorasi Rumah", "Alat Kebersihan", "Peralatan Penyimpanan", "Makanan dan Minuman", 
+        "Kesehatan", "Olahraga", "Otomotif", "Perlengkapan Sekolah", "Mainan dan Hobi", "Produk Digital", 
+        "Perlengkapan Bayi", "Peralatan dan Perbaikan Rumah", "Hewan dan Peliharaan", "Tiket dan Perjalanan" };
 
-        // Memeriksa apakah pengguna memilih "Yes"
-        if (response == JOptionPane.YES_OPTION) {
+    JComboBox<String> cbKategori = new JComboBox<>(kategoriOptions);
+    cbKategori.setSelectedItem(produk.getkategori());  // Mengatur kategori yang ada pada produk ke dalam ComboBox
 
-            if (!repo1.repoRemoveProduk(produk.getbarangTerjual())) {
-                // Menampilkan dialog kesalahan jika penghapusan gagal
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Gagal menghapus data produk!",
-                        "Kesalahan",
-                        JOptionPane.ERROR_MESSAGE
-                );
-                return;
-            }
-        
-            callback.run();
+    JPanel panel = new JPanel(new GridLayout(7, 2));  // Menambahkan satu baris untuk kategori
+    panel.add(new JLabel("Nama Barang:"));
+    panel.add(tfNamaBarang);
+    panel.add(new JLabel("Harga:"));
+    panel.add(tfHarga);
+    panel.add(new JLabel("Deskripsi:"));
+    panel.add(tfDeskripsi);
+    panel.add(new JLabel("Stok:"));
+    panel.add(tfStok);
+    panel.add(new JLabel("Kategori:"));
+    panel.add(cbKategori);
 
-            JOptionPane.showMessageDialog(
-                null,
-                "Produk berhasil dihapus.",
-                "Informasi",
-                JOptionPane.INFORMATION_MESSAGE
-            );
+    int option = JOptionPane.showConfirmDialog(
+            null, panel, "Edit Produk", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+    // Jika pengguna menekan OK
+    if (option == JOptionPane.OK_OPTION) {
+        String namaBarang = tfNamaBarang.getText();
+        double harga = Double.parseDouble(tfHarga.getText());
+        String deskripsi = tfDeskripsi.getText();
+        int stokBarang = Integer.parseInt(tfStok.getText());
+        int barangTerjual = Integer.parseInt(tfTerjual.getText());
+        String kategori = (String) cbKategori.getSelectedItem();  // Mendapatkan kategori yang dipilih
+
+        // Memperbarui produk di repositori
+        boolean updated = repo1.repoUpdateProduk(produk.getidBarang(), namaBarang, harga, deskripsi, stokBarang, barangTerjual, kategori);
+
+        if (updated) {
+            JOptionPane.showMessageDialog(null, "Produk berhasil diperbarui!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            callback.run();  // Memanggil callback untuk memperbarui tampilan
+        } else {
+            JOptionPane.showMessageDialog(null, "Gagal memperbarui produk!", "Kesalahan", JOptionPane.ERROR_MESSAGE);
         }
     }
+}
+
+
+private void handleDelete(Produk produk) {
+    // Menampilkan dialog konfirmasi untuk menghapus produk
+    int response = JOptionPane.showConfirmDialog(
+            null,
+            "Apakah Anda yakin ingin menghapus produk: \n" + produk.getnamaBarang() + "?",
+            "Konfirmasi Hapus",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE
+    );
+
+    if (response == JOptionPane.YES_OPTION) {
+        // Menghapus produk dari repositori menggunakan ID produk
+        boolean deleted = repo1.repoRemoveProduk(produk.getidBarang());
+
+        if (deleted) {
+            JOptionPane.showMessageDialog(null, "Produk berhasil dihapus.", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            callback.run();  // Memanggil callback untuk memperbarui tampilan
+        } else {
+            JOptionPane.showMessageDialog(null, "Gagal menghapus produk!", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
+
 
 
     /**

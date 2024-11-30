@@ -236,28 +236,25 @@ public class ProdukModel {
 
 
     // Update - Update a register entry by ID and return boolean
-    public static boolean updateProduk(int id, String namaBarang, double harga, String deskripsi, int stokBarang, int barangTerjual) {
-    String query = "UPDATE produk SET namaBarang = ?, harga = ?, deskripsi = ?, stokBarang = ?, WHERE ID_produk = ?";
+    public static boolean updateProduk(int id, String namaBarang, double harga, String deskripsi, int stokBarang, int barangTerjual, String kategori) {
+    String query = "UPDATE produk SET namaBarang = ?, harga = ?, deskripsi = ?, stokBarang = ? WHERE ID_produk = ?";
     try (java.sql.Connection conn = DBUtil.getConnection();
          PreparedStatement stmt = conn.prepareStatement(query)) {
 
-        // Set parameter untuk query
-        stmt.setString(1, namaBarang);
-        stmt.setBigDecimal(2, BigDecimal.valueOf(harga)); // Konversi double ke BigDecimal
+       stmt.setString(1, namaBarang);
+        stmt.setDouble(2, harga);
         stmt.setString(3, deskripsi);
         stmt.setInt(4, stokBarang);
-        stmt.setInt(5, id);
+        stmt.setInt(5, barangTerjual);
+        stmt.setString(6, kategori);
+        stmt.setInt(7, id);
 
-        // Eksekusi query
-        int rowsAffected = stmt.executeUpdate();
-        return rowsAffected > 0; // True jika ada baris yang diperbarui
+        int affectedRows = stmt.executeUpdate();
+        return affectedRows > 0;
     } catch (SQLException e) {
-        // Log error
-        System.err.println("Error saat memperbarui produk dengan ID " + id + ": " + e.getMessage());
         e.printStackTrace();
+        return false;
     }
-
-    return false; // False jika terjadi error
 }
 
     // Delete - Menghapus produk berdasarkan ID dan mengembalikan boolean
@@ -335,5 +332,51 @@ public static ArrayList<Produk> getAllUserProduk(String keyword) {
 
     return produkList;
 }
+
+public static boolean purchaseProduct(int idProduk, int jumlahPembelian) {
+    // Ambil data produk berdasarkan ID
+    Produk produk = getProdukById(idProduk);
+    if (produk == null) {
+        System.out.println("Produk tidak ditemukan.");
+        return false;
+    }
+
+    // Periksa apakah stok cukup
+    if (produk.getstokBarang() < jumlahPembelian) {
+        System.out.println("Stok tidak mencukupi untuk pembelian.");
+        return false;
+    }
+
+    // Kurangi stok produk
+    int stokBaru = produk.getstokBarang() - jumlahPembelian;
+
+    // Update stok di database
+    return updateStok(idProduk, stokBaru);
+}
+
+public static boolean updateStok(int idProduk, int stokBaru) {
+    String query = "UPDATE produk SET stokBarang = ? WHERE ID_produk = ?";
+    try (java.sql.Connection conn = DBUtil.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        // Set parameter untuk query
+        stmt.setInt(1, stokBaru);
+        stmt.setInt(2, idProduk);
+
+        // Eksekusi query
+        int rowsAffected = stmt.executeUpdate();
+        if (rowsAffected > 0) {
+            System.out.println("Stok produk berhasil diperbarui.");
+            return true;
+        } else {
+            System.out.println("Gagal memperbarui stok produk.");
+        }
+    } catch (SQLException e) {
+        System.err.println("Error saat memperbarui stok produk: " + e.getMessage());
+        e.printStackTrace();
+    }
+    return false; // Jika gagal memperbarui stok
+}
+
 
 }
