@@ -7,6 +7,7 @@ package android.repository;
 import android.entity.Produk;
 import android.model.ProdukModel;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -65,4 +66,6 @@ public class RepoProduk implements IRepoProduk{
     public ArrayList<Produk> repoGetAllUserProduk() {
         return ProdukModel.getAllUserProduk("");
     } 
+    
+    
 }

@@ -171,22 +171,29 @@ public class BuyingPanel extends javax.swing.JPanel {
 }
      
      private void handleBeli(Produk produk) {
-     
-        KonfirmasiPanel konfirPanel = new KonfirmasiPanel(repo, callback);
-        konfirPanel.setNamaBarang(produk.getnamaBarang());
-        konfirPanel.setDeskripsiBarang(produk.getdeskripsi());
-        konfirPanel.setHargaBarang(produk.getharga());
-        KonfirmasiPanel.setStok(produk.getstokBarang());
-        
-        produk.setstokBarang(konfirPanel.setStokBarang());
+    KonfirmasiPanel konfirPanel = new KonfirmasiPanel(repo, callback);
+    konfirPanel.setNamaBarang(produk.getnamaBarang());
+    konfirPanel.setDeskripsiBarang(produk.getdeskripsi());
+    konfirPanel.setHargaBarang(produk.getharga());
+    konfirPanel.setStok(produk.getstokBarang());
 
+    konfirPanel.setVisible(true);
 
-        konfirPanel.setVisible(true);
-        Window window = SwingUtilities.getWindowAncestor(this);
-        if (window instanceof JFrame) {
-        ((JFrame) window).dispose(); // Menutup JFrame yang berisi JPanel ini
+    // Tangkap jumlah barang yang dibeli
+    int jumlahDibeli = konfirPanel.getJumlahBarangDibeli(); // Pastikan ada metode ini
+    if (jumlahDibeli > 0 && jumlahDibeli <= produk.getstokBarang()) {
+        produk.setstokBarang(produk.getstokBarang() - jumlahDibeli); // Kurangi stok
+        // Lakukan pembaruan tampilan stok jika perlu
+ 
     }
-     }
+
+    // Tutup JFrame
+    Window window = SwingUtilities.getWindowAncestor(this);
+    if (window instanceof JFrame) {
+        ((JFrame) window).dispose();
+    }
+}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -292,6 +299,8 @@ public class BuyingPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+
+
     private void searchTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchTxtActionPerformed
@@ -310,7 +319,7 @@ public class BuyingPanel extends javax.swing.JPanel {
 
       
     }//GEN-LAST:event_searchBtnActionPerformed
-
+    
     private void pilihkategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pilihkategoriActionPerformed
         String kategori1 = (String)pilihkategori.getSelectedItem();
         
@@ -322,7 +331,8 @@ public class BuyingPanel extends javax.swing.JPanel {
         displayProducts(filteredTodos);
 
     }//GEN-LAST:event_pilihkategoriActionPerformed
-
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contentPanel;
