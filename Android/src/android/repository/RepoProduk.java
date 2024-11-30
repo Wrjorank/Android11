@@ -32,8 +32,8 @@ public class RepoProduk implements IRepoProduk{
     } 
     
     @Override
-    public boolean repoUpdateProduk(int id, String namaBarang, double harga, String deskripsi, int stokBarang, int barangTerjual) {
-        return ProdukModel.updateProduk(id, namaBarang, harga, deskripsi, stokBarang, barangTerjual);
+    public boolean repoUpdateProduk(int id, String namaBarang, double harga, String deskripsi, int stokBarang, int barangTerjual, String kategori) {
+        return ProdukModel.updateProduk(id, namaBarang, harga, deskripsi, stokBarang, barangTerjual, kategori);
     }
     
     @Override
