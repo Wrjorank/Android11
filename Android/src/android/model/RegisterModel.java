@@ -41,7 +41,7 @@ public class RegisterModel {
 
 
     // Read - Get register details by ID
-    public static data getRegisterById(int id) {
+    public static data getRegisterById(int id, int saldo) {
         String query = "SELECT * FROM register WHERE id = ?";
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -56,7 +56,7 @@ public class RegisterModel {
                         rs.getString("username"),
                         rs.getString("password"),
                         rs.getString("alamat"),
-                        rs.getString("tanggalLahir")
+                        rs.getString("tanggalLahir"), saldo
                 );
             }
         } catch (SQLException e) {
@@ -66,7 +66,7 @@ public class RegisterModel {
     }
 
     // Read All - Get all register entries or filter by keyword in `nama_depan` or `nama_belakang`
-    public static ArrayList<data> getAllRegisters(String keyword) {
+    public static ArrayList<data> getAllRegisters(String keyword, int saldo) {
         ArrayList<data> registers = new ArrayList<>();
         String query = "SELECT * FROM register";
         if (keyword != null && !keyword.isEmpty()) {
@@ -90,7 +90,7 @@ public class RegisterModel {
                         rs.getString("username"),
                         rs.getString("password"),
                         rs.getString("alamat"),
-                        rs.getString("tanggalLahir")
+                        rs.getString("tanggalLahir"), saldo
                         
                 ));
             }
@@ -134,6 +134,47 @@ public class RegisterModel {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    public static data showData (String username) {
+        String queryRegister = "SELECT * FROM register WHERE username = ?";
+        String querySaldo = "SELECT saldo FROM saldo WHERE username = ?";
+        data userData = null;
+
+    try (Connection conn = DBUtil.getConnection()) {
+        // Ambil data dari tabel register
+        try (PreparedStatement stmtRegister = conn.prepareStatement(queryRegister)) {
+            stmtRegister.setString(1, username);
+            ResultSet rsRegister = stmtRegister.executeQuery();
+
+            if (rsRegister.next()) {
+                // Ambil data dari tabel register
+                int id = rsRegister.getInt("id");
+                String namaDepan = rsRegister.getString("namaDepan");
+                String namaBelakang = rsRegister.getString("namaBelakang");
+                String password = rsRegister.getString("password");
+                String alamat = rsRegister.getString("alamat");
+                String tanggalLahir = rsRegister.getString("tanggalLahir");
+
+                // Ambil saldo dari tabel saldo
+                int saldo = 0; // Default saldo
+                try (PreparedStatement stmtSaldo = conn.prepareStatement(querySaldo)) {
+                    stmtSaldo.setString(1, username);
+                    ResultSet rsSaldo = stmtSaldo.executeQuery();
+                    if (rsSaldo.next()) {
+                        saldo = rsSaldo.getInt("saldo");
+                    }
+                }
+
+                // Buat objek data
+                userData = new data(id, namaDepan, namaBelakang, username, password, alamat, tanggalLahir, saldo);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return userData;
     }
     
     public static boolean validateLogin(String username, String password) {

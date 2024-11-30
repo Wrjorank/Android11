@@ -61,7 +61,7 @@ public class password extends javax.swing.JFrame {
     String password = new String(passwordArray);
 
     // Cek apakah password yang dimasukkan benar
-    if (password.equals("ambalabu")) {
+    if (password.equals("pocox6")) {
         // Tutup frame saat ini
         this.dispose();
 

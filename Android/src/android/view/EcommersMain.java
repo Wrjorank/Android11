@@ -4,6 +4,8 @@
  */
 package android.view;
 
+import android.entity.data;
+import static android.model.RegisterModel.showData;
 import android.repository.IRepoProduk;
 import android.repository.RepoProduk;
 import android.view.SellingPanel;
@@ -13,6 +15,8 @@ import android.view.panel.DrafProduct;
 import android.view.panel.SellingPanel1;
 import java.awt.Color;
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,11 +26,19 @@ public class EcommersMain extends javax.swing.JFrame {
 
     private IRepoProduk repo;
     
+    private JLabel jLabel3; // Username
+    private JLabel jLabel5; // Nama Depan
+    private JLabel jLabel7; // Nama Belakang
+    private JLabel jLabel9; // Tanggal Lahir
+    private JLabel jLabel11; // Alamat
+    private JLabel jLabel13; // Saldo
+    
     public EcommersMain() {
         initComponents();
         
         this.repo = new RepoProduk();
         setUIMenuActive(1);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -154,7 +166,27 @@ public class EcommersMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        setUIMenuActive(3); 
+        
+        String username = "usernameAktif"; // Ambil username aktif dari sesi login
+
+    // Panggil showData untuk mendapatkan informasi pengguna
+    data userData = showData(username);
+
+    if (userData != null) {
+        // Set nilai label di panel AboutUser
+        jLabel3.setText(userData.getUsername());
+        jLabel5.setText(userData.getNamaDepan());
+        jLabel7.setText(userData.getNamaBelakang());
+        jLabel9.setText(userData.getTanggalLahir());
+        jLabel11.setText(userData.getAlamat());
+        jLabel13.setText(String.valueOf(userData.getSaldo()));
+
+        // Tampilkan panel AboutUser
         setUIMenuActive(3);
+    } else {
+        JOptionPane.showMessageDialog(this, "Data tidak ditemukan!", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -6,7 +6,6 @@
 package Scientific_Calculate;
 
 import android.view.AndroidView;
-import android.view.viewAwal;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 

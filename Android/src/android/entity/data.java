@@ -14,7 +14,7 @@ public class data {
 
     // Constructor
     public data(
-            int id, String namaDepan, String namaBelakang, String username, String password, String alamat, String tanggalLahir) {
+            int id, String namaDepan, String namaBelakang, String username, String password, String alamat, String tanggalLahir, int saldo) {
         this.id = id;
         this.namaDepan = namaDepan;
         this.namaBelakang = namaBelakang;
@@ -51,5 +51,9 @@ public class data {
 
     public String getTanggalLahir() {
         return tanggalLahir;
+    }
+
+    public Object getSaldo() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
