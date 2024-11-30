@@ -176,6 +176,7 @@ public class BuyingPanel extends javax.swing.JPanel {
     konfirPanel.setDeskripsiBarang(produk.getdeskripsi());
     konfirPanel.setHargaBarang(produk.getharga());
     konfirPanel.setStok(produk.getstokBarang());
+    
 
     konfirPanel.setVisible(true);
 
