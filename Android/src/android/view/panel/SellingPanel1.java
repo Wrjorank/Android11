@@ -8,6 +8,9 @@ import android.model.sessionModel;
 import android.repository.IRepoProduk;
 import android.view.LoginForm;
 import android.view.TambahGambarApp;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -19,6 +22,8 @@ public class SellingPanel1 extends javax.swing.JPanel {
 
         private final IRepoProduk repo1;
         private final Runnable callback;
+        private File selectedImageFile = null; // Untuk menyimpan file gambar yang dipilih
+
        
     /**
      * Creates new form SellingPanel
@@ -450,10 +455,18 @@ public class SellingPanel1 extends javax.swing.JPanel {
         return;
     }
     
+    byte[] imageBytes = null;
+    try {
+        imageBytes = Files.readAllBytes(selectedImageFile.toPath());
+    } catch (IOException ex) {
+        JOptionPane.showMessageDialog(this, "Gagal membaca file gambar!", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
     int userID = sessionModel.getUserID();  // You need to define how to get the logged-in user's ID
     String username = sessionModel.getUsername();
     // Panggil repoAddProduk setelah konversi berhasil
-    int id = repo1.repoAddProduk(namaProduk, hargaProduk1, deskripsiProduk, stokProduk1, kategori1, username, userID);
+    int id = repo1.repoAddProduk(namaProduk, hargaProduk1, deskripsiProduk, stokProduk1, kategori1, username, imageBytes, userID);
     if (id <= 0) {
         JOptionPane.showMessageDialog(this, 
             "Gagal menambahkan data produk!", 
@@ -478,9 +491,34 @@ public class SellingPanel1 extends javax.swing.JPanel {
     }//GEN-LAST:event_kategoriActionPerformed
 
     private void tambahGambarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahGambarActionPerformed
+
     SwingUtilities.invokeLater(() -> {
         TambahGambarApp app = new TambahGambarApp();
         app.setVisible(true);
+
+        // Listener untuk menangani file gambar setelah dialog ditutup
+        app.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                File file = app.getSelectedFile();
+                if (file != null) {
+                    selectedImageFile = file; // Simpan file yang dipilih
+                    JOptionPane.showMessageDialog(
+                        null, 
+                        "Gambar berhasil dipilih: " + file.getName(), 
+                        "Informasi", 
+                        JOptionPane.INFORMATION_MESSAGE
+                    );
+                } else {
+                    JOptionPane.showMessageDialog(
+                        null, 
+                        "Tidak ada gambar yang dipilih.", 
+                        "Peringatan", 
+                        JOptionPane.WARNING_MESSAGE
+                    );
+                }
+            }
+        });
     });
     }//GEN-LAST:event_tambahGambarActionPerformed
 

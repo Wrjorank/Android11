@@ -8,8 +8,9 @@ import java.io.File;
 
 public class TambahGambarApp extends JFrame {
 
-    private JLabel lblImagePreview; // Label untuk menampilkan gambar
-    private File selectedFile;
+     private JLabel lblImagePreview; // Label untuk menampilkan gambar
+    private File selectedFile; // Variabel untuk menyimpan file gambar
+    private boolean isImageSelected = false; // Status apakah gambar dipilih
 
     public TambahGambarApp() {
         this.setLocationRelativeTo(null);
@@ -55,27 +56,30 @@ public class TambahGambarApp extends JFrame {
     }
 
     private void pilihGambar() {
-        // Dialog pemilih file
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Gambar", "jpg", "png", "jpeg"));
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Gambar", "jpg", "png", "jpeg"));
+    int result = fileChooser.showOpenDialog(this);
 
-        int result = fileChooser.showOpenDialog(this);
-
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            if (file != null) {
-                // Menampilkan gambar di JLabel
-                ImageIcon imageIcon = new ImageIcon(file.getAbsolutePath());
-                Image scaledImage = imageIcon.getImage().getScaledInstance(
-                        lblImagePreview.getWidth(), 
-                        lblImagePreview.getHeight(), 
-                        Image.SCALE_SMOOTH
-                );
-                lblImagePreview.setIcon(new ImageIcon(scaledImage));
-                lblImagePreview.setText(""); // Hapus teks "Pratinjau Gambar"
-            }
+    if (result == JFileChooser.APPROVE_OPTION) {
+        File file = fileChooser.getSelectedFile();
+        if (file != null) {
+            selectedFile = file; // Menyimpan file yang dipilih ke selectedFile
+            isImageSelected = true; // Menandakan bahwa gambar telah dipilih
+            
+            // Menampilkan gambar di JLabel
+            ImageIcon imageIcon = new ImageIcon(file.getAbsolutePath());
+            Image scaledImage = imageIcon.getImage().getScaledInstance(
+                    lblImagePreview.getWidth(), 
+                    lblImagePreview.getHeight(), 
+                    Image.SCALE_SMOOTH
+            );
+            lblImagePreview.setIcon(new ImageIcon(scaledImage));
+            lblImagePreview.setText(""); // Hapus teks "Pratinjau Gambar"
         }
     }
+}
+
+
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -152,6 +156,7 @@ public class TambahGambarApp extends JFrame {
             JOptionPane.showMessageDialog(this, 
                 "Gambar berhasil dipilih:\n" + selectedFile.getName(), 
                 "Informasi", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
             // Anda dapat menambahkan logika penyimpanan gambar di sini
         } else {
             JOptionPane.showMessageDialog(this, 
@@ -173,6 +178,9 @@ public class TambahGambarApp extends JFrame {
         }
     }
 
+     public File getSelectedFile() {
+        return isImageSelected ? selectedFile : null;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
