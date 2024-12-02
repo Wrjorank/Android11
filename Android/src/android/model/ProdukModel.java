@@ -22,8 +22,8 @@ import static javax.swing.text.html.HTML.Attribute.ID;
  */
 public class ProdukModel {
 
-    public static int addProduk(String namaBarang, double harga, String deskripsi, int stokBarang, String kategori, String username, int ID) {
-    String query = "INSERT INTO produk (namaBarang, harga, deskripsi, stokBarang, kategori, username, ID) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public static int addProduk(String namaBarang, double harga, String deskripsi, int stokBarang, String kategori, String username, byte [] gambar, int ID) {
+    String query = "INSERT INTO produk (namaBarang, harga, deskripsi, stokBarang, kategori, username, gambar, ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     
     try (java.sql.Connection conn = DBUtil.getConnection();
          PreparedStatement stmt = conn.prepareStatement(query, java.sql.Statement.RETURN_GENERATED_KEYS)) {
@@ -40,7 +40,8 @@ public class ProdukModel {
         stmt.setInt(4, stokBarang);
         stmt.setString(5, kategori);
         stmt.setString(6, username);
-        stmt.setInt(7, ID); // Set user ID for foreign key
+        stmt.setBytes(7, gambar); // Simpan gambar
+        stmt.setInt(8, ID);
 
         // Eksekusi query dan cek jumlah baris yang terpengaruh
         int affectedRows = stmt.executeUpdate();
@@ -375,6 +376,26 @@ public static boolean updateStok(int idProduk, int stokBaru) {
         e.printStackTrace();
     }
     return false; // Jika gagal memperbarui stok
+}
+
+public static String getGambarPathById(int idBarang) {
+    String query = "SELECT gambar FROM produk WHERE ID_produk = ?";
+
+    try (java.sql.Connection conn = DBUtil.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setInt(1, idBarang);
+
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            return rs.getString("gambar"); // Ambil path gambar dari kolom
+        }
+    } catch (SQLException e) {
+        System.err.println("Error saat mengambil path gambar untuk ID " + idBarang + ": " + e.getMessage());
+        e.printStackTrace();
+    }
+
+    return null; // Jika tidak ditemukan, kembalikan null
 }
 
 

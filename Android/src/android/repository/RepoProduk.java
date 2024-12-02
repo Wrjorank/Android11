@@ -6,6 +6,7 @@ package android.repository;
 
 import android.entity.Produk;
 import android.model.ProdukModel;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,8 +23,8 @@ public class RepoProduk implements IRepoProduk{
     } 
     
     @Override
-    public int repoAddProduk (String namaBarang, double harga, String deskripsi, int stokBarang, String kategori, String username, int userID) {
-        return ProdukModel.addProduk(namaBarang, harga, deskripsi, stokBarang, kategori, username, userID);
+    public int repoAddProduk (String namaBarang, double harga, String deskripsi, int stokBarang, String kategori, String username, byte [] gambarfile, int userID) {
+        return ProdukModel.addProduk(namaBarang, harga, deskripsi, stokBarang, kategori, username, gambarfile, userID);
     } 
     
     @Override

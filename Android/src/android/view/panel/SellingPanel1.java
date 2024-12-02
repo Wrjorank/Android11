@@ -7,7 +7,12 @@ package android.view.panel;
 import android.model.sessionModel;
 import android.repository.IRepoProduk;
 import android.view.LoginForm;
+import android.view.TambahGambarApp;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -17,6 +22,8 @@ public class SellingPanel1 extends javax.swing.JPanel {
 
         private final IRepoProduk repo1;
         private final Runnable callback;
+        private File selectedImageFile = null; // Untuk menyimpan file gambar yang dipilih
+
        
     /**
      * Creates new form SellingPanel
@@ -54,6 +61,8 @@ public class SellingPanel1 extends javax.swing.JPanel {
         simpanButton = new javax.swing.JButton();
         kategori = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        tambahGambar = new javax.swing.JButton();
 
         jPanel2.setBackground(new java.awt.Color(51, 153, 255));
 
@@ -190,6 +199,15 @@ public class SellingPanel1 extends javax.swing.JPanel {
 
         jLabel1.setText("Kategori");
 
+        jLabel2.setText("Gambar");
+
+        tambahGambar.setText("File");
+        tambahGambar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tambahGambarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -197,8 +215,8 @@ public class SellingPanel1 extends javax.swing.JPanel {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(harga_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -208,14 +226,17 @@ public class SellingPanel1 extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(stok_produk)
-                                .addComponent(kategori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton_tambah)
+                                .addComponent(stok_produk, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
                             .addGap(18, 18, 18)
+                            .addComponent(jButton_tambah)
+                            .addGap(27, 27, 27)
                             .addComponent(jButton_kurang))
-                        .addComponent(jLabel1))
-                    .addComponent(simpanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1)
+                        .addComponent(simpanButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(kategori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(tambahGambar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -239,19 +260,23 @@ public class SellingPanel1 extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(stok_produk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(stok_produk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton_kurang)
-                            .addComponent(jButton_tambah))))
-                .addGap(2, 2, 2)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton_tambah))
+                        .addGap(25, 25, 25)))
                 .addComponent(kategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tambahGambar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(simpanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -430,10 +455,18 @@ public class SellingPanel1 extends javax.swing.JPanel {
         return;
     }
     
+    byte[] imageBytes = null;
+    try {
+        imageBytes = Files.readAllBytes(selectedImageFile.toPath());
+    } catch (IOException ex) {
+        JOptionPane.showMessageDialog(this, "Gagal membaca file gambar!", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
     int userID = sessionModel.getUserID();  // You need to define how to get the logged-in user's ID
     String username = sessionModel.getUsername();
     // Panggil repoAddProduk setelah konversi berhasil
-    int id = repo1.repoAddProduk(namaProduk, hargaProduk1, deskripsiProduk, stokProduk1, kategori1, username, userID);
+    int id = repo1.repoAddProduk(namaProduk, hargaProduk1, deskripsiProduk, stokProduk1, kategori1, username, imageBytes, userID);
     if (id <= 0) {
         JOptionPane.showMessageDialog(this, 
             "Gagal menambahkan data produk!", 
@@ -457,6 +490,38 @@ public class SellingPanel1 extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_kategoriActionPerformed
 
+    private void tambahGambarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahGambarActionPerformed
+
+    SwingUtilities.invokeLater(() -> {
+        TambahGambarApp app = new TambahGambarApp();
+        app.setVisible(true);
+
+        // Listener untuk menangani file gambar setelah dialog ditutup
+        app.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                File file = app.getSelectedFile();
+                if (file != null) {
+                    selectedImageFile = file; // Simpan file yang dipilih
+                    JOptionPane.showMessageDialog(
+                        null, 
+                        "Gambar berhasil dipilih: " + file.getName(), 
+                        "Informasi", 
+                        JOptionPane.INFORMATION_MESSAGE
+                    );
+                } else {
+                    JOptionPane.showMessageDialog(
+                        null, 
+                        "Tidak ada gambar yang dipilih.", 
+                        "Peringatan", 
+                        JOptionPane.WARNING_MESSAGE
+                    );
+                }
+            }
+        });
+    });
+    }//GEN-LAST:event_tambahGambarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField deskripsi_produk;
@@ -464,6 +529,7 @@ public class SellingPanel1 extends javax.swing.JPanel {
     private javax.swing.JButton jButton_kurang;
     private javax.swing.JButton jButton_tambah;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -474,5 +540,6 @@ public class SellingPanel1 extends javax.swing.JPanel {
     private javax.swing.JTextField nama_produk;
     private javax.swing.JButton simpanButton;
     private javax.swing.JTextField stok_produk;
+    private javax.swing.JButton tambahGambar;
     // End of variables declaration//GEN-END:variables
 }

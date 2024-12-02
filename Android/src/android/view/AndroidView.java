@@ -5,6 +5,7 @@
 package android.view;
 
 import Scientific_Calculate.Scientific_Cal;
+import calculator.calculatorFrame;
 
 /**
  *
@@ -131,7 +132,7 @@ public class AndroidView extends javax.swing.JFrame {
         this.dispose();
         
         //buat dan buka frame Calculator
-        Scientific_Cal kalkulator = new Scientific_Cal();
+        calculatorFrame kalkulator = new calculatorFrame();
         kalkulator.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 

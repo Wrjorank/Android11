@@ -8,18 +8,19 @@ import android.entity.Produk;
 import android.model.ProdukModel;
 import android.model.sessionModel;
 import android.repository.IRepoProduk;
-import android.view.KonfirmasiPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Window;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -92,6 +93,24 @@ public class BuyingPanel extends javax.swing.JPanel {
             produkPanel.setPreferredSize(new Dimension(365, 110));
             produkPanel.setMaximumSize(new Dimension(365, 110));
 
+            // Menampilkan gambar produk
+            String gambarPath = ProdukModel.getGambarPathById(produk1.getidBarang()); // Pastikan metode ini ada
+            JLabel lblGambar = new JLabel();
+            lblGambar.setPreferredSize(new Dimension(100, 100)); // Atur ukuran gambar
+
+            if (gambarPath != null && !gambarPath.isEmpty()) {
+                ImageIcon imageIcon = new ImageIcon(gambarPath);
+                Image scaledImage = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                lblGambar.setIcon(new ImageIcon(scaledImage));
+            } else {
+                lblGambar.setText("No Image"); // Jika tidak ada gambar
+                lblGambar.setHorizontalAlignment(SwingConstants.CENTER);
+                lblGambar.setVerticalAlignment(SwingConstants.CENTER);
+            }
+
+            lblGambar.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+    
             JLabel lblproduk = new JLabel("#" + produk1.getidBarang() + " " + produk1.getnamaBarang());
             lblproduk.setFont(new Font("Georgia", Font.BOLD, 12));
             lblproduk.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 0));
@@ -157,6 +176,7 @@ public class BuyingPanel extends javax.swing.JPanel {
             
             actionPanel.add(btnBeli);
            
+            produkPanel.add(lblGambar, BorderLayout.WEST);
             produkPanel.add(panelProdukUsername, BorderLayout.NORTH);
             produkPanel.add(infoPanel, BorderLayout.CENTER);
             produkPanel.add(panelStokDanTerjual, BorderLayout.SOUTH);
