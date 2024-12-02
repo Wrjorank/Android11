@@ -258,8 +258,8 @@ private void handleDelete(Produk produk) {
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        searchBTNActionPerformed = new javax.swing.JButton();
+        searchTXT = new javax.swing.JTextField();
         contentPanel = new javax.swing.JPanel();
         jScrollPane = new javax.swing.JScrollPane();
 
@@ -277,14 +277,19 @@ private void handleDelete(Produk produk) {
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/android/assets/search_icon.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        searchBTNActionPerformed.setIcon(new javax.swing.ImageIcon(getClass().getResource("/android/assets/search_icon.png"))); // NOI18N
+        searchBTNActionPerformed.setBorderPainted(false);
+        searchBTNActionPerformed.setContentAreaFilled(false);
+        searchBTNActionPerformed.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        searchBTNActionPerformed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                searchBTNActionPerformedActionPerformed(evt);
+            }
+        });
+
+        searchTXT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchTXTActionPerformed(evt);
             }
         });
 
@@ -298,9 +303,9 @@ private void handleDelete(Produk produk) {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(22, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchBTNActionPerformed, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addGap(14, 14, 14))
@@ -313,8 +318,8 @@ private void handleDelete(Produk produk) {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
+                    .addComponent(searchBTNActionPerformed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(searchTXT))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -348,22 +353,36 @@ private void handleDelete(Produk produk) {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void searchTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTXTActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_searchTXTActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         callback.run();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void searchBTNActionPerformedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBTNActionPerformedActionPerformed
+        String searchText = searchTXT.getText().trim();
+
+    if (searchText.isEmpty()) {
+        displayProducts(repo1.repoGetAllProduk());
+        return;
+    }
+    
+    ArrayList<Produk> filteredTodos = repo1.repoSearchProduk(searchText);
+    displayProducts(filteredTodos);
+    
+    }//GEN-LAST:event_searchBTNActionPerformedActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contentPanel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton searchBTNActionPerformed;
+    private javax.swing.JTextField searchTXT;
     // End of variables declaration//GEN-END:variables
 }
