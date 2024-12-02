@@ -29,7 +29,7 @@ public class EcommersMain extends javax.swing.JFrame {
         
         this.repo = new RepoProduk();
         setUIMenuActive(1);
-         this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
         this.setFocusable(true);
         this.requestFocusInWindow();
     }
