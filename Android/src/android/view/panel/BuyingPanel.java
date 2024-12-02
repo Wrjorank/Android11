@@ -8,6 +8,7 @@ import android.entity.Produk;
 import android.model.ProdukModel;
 import android.model.sessionModel;
 import android.repository.IRepoProduk;
+import com.sun.jdi.connect.spi.Connection;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -69,7 +70,15 @@ public class BuyingPanel extends javax.swing.JPanel {
      private void displayProducts(ArrayList<Produk> produk) {
     contentPanel.removeAll(); // Menghapus semua komponen sebelumnya dari contentPanel
 
-    if (produk.isEmpty()) {
+    // Filter produk yang memiliki stok lebih dari 0
+    ArrayList<Produk> produkTersedia = new ArrayList<>();
+    for (Produk produk1 : produk) {
+        if (produk1.getstokBarang() > 0) {
+            produkTersedia.add(produk1);
+        }
+    }
+
+    if (produkTersedia.isEmpty()) {
         JPanel produkPanel = new JPanel(new BorderLayout());
         produkPanel.setBackground(Color.WHITE);
         produkPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
@@ -86,31 +95,19 @@ public class BuyingPanel extends javax.swing.JPanel {
         contentPanel.setOpaque(false);
         contentPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 
-        for (Produk produk1 : produk) {
+        for (Produk produk1 : produkTersedia) {
             JPanel produkPanel = new JPanel(new BorderLayout());
             produkPanel.setBackground(Color.WHITE);
             produkPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
             produkPanel.setPreferredSize(new Dimension(365, 110));
             produkPanel.setMaximumSize(new Dimension(365, 110));
-
-            // Menampilkan gambar produk
-            String gambarPath = ProdukModel.getGambarPathById(produk1.getidBarang()); // Pastikan metode ini ada
+            
             JLabel lblGambar = new JLabel();
-            lblGambar.setPreferredSize(new Dimension(100, 100)); // Atur ukuran gambar
-
-            if (gambarPath != null && !gambarPath.isEmpty()) {
-                ImageIcon imageIcon = new ImageIcon(gambarPath);
-                Image scaledImage = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-                lblGambar.setIcon(new ImageIcon(scaledImage));
-            } else {
-                lblGambar.setText("No Image"); // Jika tidak ada gambar
-                lblGambar.setHorizontalAlignment(SwingConstants.CENTER);
-                lblGambar.setVerticalAlignment(SwingConstants.CENTER);
-            }
-
+            lblGambar.setPreferredSize(new Dimension(100, 100)); // Set image size
             lblGambar.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
-    
+            ProdukModel.tampilkanGambar(produk1.getidBarang(), lblGambar);
+
             JLabel lblproduk = new JLabel("#" + produk1.getidBarang() + " " + produk1.getnamaBarang());
             lblproduk.setFont(new Font("Georgia", Font.BOLD, 12));
             lblproduk.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 0));
@@ -119,63 +116,56 @@ public class BuyingPanel extends javax.swing.JPanel {
             lbldeskripsi.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 12));
             lbldeskripsi.setBorder(BorderFactory.createEmptyBorder(5, 10, 0, 0));
 
-            JLabel lblharga = new JLabel(String.valueOf(produk1.getharga())); // Konversi double ke String
-            lblharga.setFont(new Font("Times New Roman", Font.BOLD, 14)); // Mengatur font: Arial, Bold, ukuran 14
-            lblharga.setForeground(Color.RED); // Mengatur warna teks menjadi biru
+            JLabel lblharga = new JLabel(String.valueOf(produk1.getharga()));
+            lblharga.setFont(new Font("Times New Roman", Font.BOLD, 14));
+            lblharga.setForeground(Color.RED);
             lblharga.setBorder(BorderFactory.createEmptyBorder(5, 10, 0, 0));
 
             JPanel panelStokDanTerjual = new JPanel();
             panelStokDanTerjual.setBorder(BorderFactory.createEmptyBorder(5, 10, 0, 10));
             panelStokDanTerjual.setBackground(Color.WHITE);
-            // Label untuk stok
+
             JLabel lblstok = new JLabel("Stok: " + produk1.getstokBarang());
             lblstok.setBorder(BorderFactory.createEmptyBorder(5, 10, 0, 10));
             lblstok.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 12));
-            
-            // Label untuk barang terjual
+
             JLabel lblterjual = new JLabel("Terjual: " + produk1.getbarangTerjual());
             lblterjual.setBorder(BorderFactory.createEmptyBorder(5, 50, 0, 10));
             lblterjual.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 12));
-            
-            // Tambahkan label ke panel
+
             panelStokDanTerjual.add(lblstok);
             panelStokDanTerjual.add(lblterjual);
-            
-             
+
             int ID_produk = produk1.getidBarang();
-            JLabel lblusername = new JLabel("@" + ProdukModel.getUsernameByUserIDproduk(ID_produk)); // Pastikan produk1 memiliki getUsername()
+            JLabel lblusername = new JLabel("@" + ProdukModel.getUsernameByUserIDproduk(ID_produk));
             lblusername.setFont(new Font("Arial", Font.BOLD, 12));
             lblusername.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 0));
             lblusername.setForeground(Color.GRAY);
-            
-             // Panel untuk menampilkan produk dan username secara horizontal
+
             JPanel panelProdukUsername = new JPanel();
             panelProdukUsername.setLayout(new FlowLayout(FlowLayout.LEFT));
             panelProdukUsername.setBackground(Color.WHITE);
             panelProdukUsername.add(lblproduk);
-            panelProdukUsername.add(lblusername); 
-            
+            panelProdukUsername.add(lblusername);
+
             JPanel infoPanel = new JPanel();
             infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
             infoPanel.setBackground(Color.WHITE);
             infoPanel.add(lbldeskripsi);
             infoPanel.add(lblharga);
-          
+
             JPanel actionPanel = new JPanel();
-            actionPanel.setLayout(new GridBagLayout());
             actionPanel.setLayout(new BoxLayout(actionPanel, BoxLayout.Y_AXIS));
             actionPanel.setBackground(Color.WHITE);
             actionPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
 
             JButton btnBeli = new JButton("Beli");
-           
             btnBeli.addActionListener(e -> handleBeli(produk1));
-           
             btnBeli.setPreferredSize(new Dimension(70, 26));
             btnBeli.setMaximumSize(new Dimension(70, 26));
-            
+
             actionPanel.add(btnBeli);
-           
+
             produkPanel.add(lblGambar, BorderLayout.WEST);
             produkPanel.add(panelProdukUsername, BorderLayout.NORTH);
             produkPanel.add(infoPanel, BorderLayout.CENTER);
