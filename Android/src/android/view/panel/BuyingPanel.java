@@ -8,7 +8,6 @@ import android.entity.Produk;
 import android.model.ProdukModel;
 import android.model.sessionModel;
 import android.repository.IRepoProduk;
-import android.view.KonfirmasiPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
