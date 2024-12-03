@@ -26,6 +26,7 @@ public class EcommersMain extends javax.swing.JFrame {
     
     public EcommersMain() {
         initComponents();
+        this.setResizable(false);
         
         this.repo = new RepoProduk();
         setUIMenuActive(1);

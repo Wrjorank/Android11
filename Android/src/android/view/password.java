@@ -15,6 +15,7 @@ public class password extends javax.swing.JFrame {
      */
     public password() {
         initComponents();
+        this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setFocusable(true);
         this.requestFocusInWindow();

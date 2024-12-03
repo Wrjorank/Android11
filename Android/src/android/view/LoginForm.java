@@ -22,6 +22,7 @@ public class LoginForm extends javax.swing.JFrame {
      */
     public LoginForm() {
         initComponents();
+        this.setResizable(false);
         this.setLocationRelativeTo(null);//untuk membuat form di tengah layar
         this.setFocusable(true);
         this.requestFocusInWindow();

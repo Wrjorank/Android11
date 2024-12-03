@@ -60,7 +60,6 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jnamabrg = new javax.swing.JTextField();
-        jdeskripsibrg = new javax.swing.JTextField();
         jhargabrg = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -68,6 +67,9 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
         totalHarga = new javax.swing.JTextField();
         IDBarang = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jScrollPane = new javax.swing.JScrollPane();
+        deskripsiBarang = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jbeli = new javax.swing.JButton();
@@ -110,18 +112,14 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
             }
         });
 
-        jdeskripsibrg.setEditable(false);
-        jdeskripsibrg.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
-        jdeskripsibrg.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jdeskripsibrg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jdeskripsibrgActionPerformed(evt);
-            }
-        });
-
         jhargabrg.setEditable(false);
         jhargabrg.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jhargabrg.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jhargabrg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jhargabrgActionPerformed(evt);
+            }
+        });
 
         jLabel4.setBackground(new java.awt.Color(51, 153, 255));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -129,6 +127,7 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
         jLabel4.setText("Nama Barang");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Harga/Barang (Rp)");
 
         labelstok.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -149,65 +148,70 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Toko");
+
+        jScrollPane.setMaximumSize(new java.awt.Dimension(326, 117));
+
+        deskripsiBarang.setToolTipText("");
+        deskripsiBarang.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        deskripsiBarang.setMaximumSize(new java.awt.Dimension(326, 117));
+        jScrollPane.setViewportView(deskripsiBarang);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Deskripsi");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(142, 142, 142))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(168, 168, 168)
-                .addComponent(labelstok)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jhargabrg)
                     .addComponent(jnamabrg)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(totalHarga))
+                    .addComponent(totalHarga)
+                    .addComponent(IDBarang))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelstok, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(161, 161, 161)
-                .addComponent(IDBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(107, 107, 107)
+                .addComponent(jhargabrg, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(jdeskripsibrg, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(180, 180, 180)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(IDBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jnamabrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(jdeskripsibrg, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addComponent(jnamabrg, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jhargabrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelstok)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(totalHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(17, 17, 17))
         );
 
         jPanel2.setBackground(new java.awt.Color(25, 38, 65));
@@ -390,10 +394,6 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
 
      totalHarga.setText(String.valueOf(value1 * value2));
     }//GEN-LAST:event_jbrgkurangActionPerformed
-
-    private void jdeskripsibrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jdeskripsibrgActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jdeskripsibrgActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.dispose();
@@ -615,6 +615,10 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
     private void IDBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDBarangActionPerformed
         IDBarang.setEditable(false);
     }//GEN-LAST:event_IDBarangActionPerformed
+
+    private void jhargabrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jhargabrgActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jhargabrgActionPerformed
     
 
     public KonfirmasiPanel() throws HeadlessException {
@@ -633,11 +637,15 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
     }
     
     public void setDeskripsiBarang (String deskripsi) {
-        jdeskripsibrg.setText(deskripsi);
+        deskripsiBarang.setText(deskripsi);
     }
     
     public void setHargaBarang (double harga) {
         jhargabrg.setText(String.valueOf(harga));
+    }
+    
+    public void setHargaAwal (double harga) {
+        totalHarga.setText(String.valueOf(harga));
     }
     
         private void setStokBarangDariDatabase(String namaBarang) {
@@ -724,6 +732,7 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField IDBarang;
+    private javax.swing.JLabel deskripsiBarang;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -731,15 +740,16 @@ public class KonfirmasiPanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JButton jbeli;
     private javax.swing.JButton jbrgkurang;
     private javax.swing.JButton jbrgtambah;
-    private javax.swing.JTextField jdeskripsibrg;
     private javax.swing.JTextField jhargabrg;
     private javax.swing.JTextField jjumlahbrg;
     private javax.swing.JTextField jnamabrg;

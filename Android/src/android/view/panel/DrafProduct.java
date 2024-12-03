@@ -26,6 +26,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
 
 /**
  *
@@ -175,23 +179,28 @@ public class DrafProduct extends javax.swing.JPanel {
     contentPanel.repaint();
 }
     
-  private void handleEdit(Produk produk) {
-    // Menyiapkan dialog input untuk mengedit produk
+private void handleEdit(Produk produk) {
     JTextField tfNamaBarang = new JTextField(produk.getnamaBarang());
-    JTextField tfHarga = new JTextField(String.valueOf(produk.getharga()));
-    JTextField tfDeskripsi = new JTextField(produk.getdeskripsi());
-    JTextField tfStok = new JTextField(String.valueOf(produk.getstokBarang()));
+    setMaxLength(tfNamaBarang, 50); 
 
-    // Membuat JComboBox untuk kategori
+    JTextField tfHarga = new JTextField(String.valueOf(produk.getharga()));
+    setMaxLength(tfHarga, 10); 
+
+    JTextField tfDeskripsi = new JTextField(produk.getdeskripsi());
+    setMaxLength(tfDeskripsi, 200); 
+
+    JTextField tfStok = new JTextField(String.valueOf(produk.getstokBarang()));
+    setMaxLength(tfStok, 5); 
+
     String[] kategoriOptions = { "Pilih", "Elektronik", "Fashion", "Kecantikan", "Perawatan Diri", "Peralatan Masak", 
         "Perabot Rumah Tangga", "Dekorasi Rumah", "Alat Kebersihan", "Peralatan Penyimpanan", "Makanan dan Minuman", 
         "Kesehatan", "Olahraga", "Otomotif", "Perlengkapan Sekolah", "Mainan dan Hobi", "Produk Digital", 
         "Perlengkapan Bayi", "Peralatan dan Perbaikan Rumah", "Hewan dan Peliharaan", "Tiket dan Perjalanan" };
 
     JComboBox<String> cbKategori = new JComboBox<>(kategoriOptions);
-    cbKategori.setSelectedItem(produk.getkategori());  // Mengatur kategori yang ada pada produk ke dalam ComboBox
+    cbKategori.setSelectedItem(produk.getkategori());
 
-    JPanel panel = new JPanel(new GridLayout(6, 2));  // Mengurangi satu baris untuk barangTerjual
+    JPanel panel = new JPanel(new GridLayout(6, 2));
     panel.add(new JLabel("Nama Barang:"));
     panel.add(tfNamaBarang);
     panel.add(new JLabel("Harga:"));
@@ -206,25 +215,43 @@ public class DrafProduct extends javax.swing.JPanel {
     int option = JOptionPane.showConfirmDialog(
             null, panel, "Edit Produk", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-    // Jika pengguna menekan OK
     if (option == JOptionPane.OK_OPTION) {
         String namaBarang = tfNamaBarang.getText();
         double harga = Double.parseDouble(tfHarga.getText());
         String deskripsi = tfDeskripsi.getText();
         int stokBarang = Integer.parseInt(tfStok.getText());
-        String kategori = (String) cbKategori.getSelectedItem();  // Mendapatkan kategori yang dipilih
+        String kategori = (String) cbKategori.getSelectedItem();
 
-        // Memperbarui produk di repositori tanpa mengupdate barangTerjual
         boolean updated = repo1.repoUpdateProduk(produk.getidBarang(), namaBarang, harga, deskripsi, stokBarang, kategori);
 
         if (updated) {
             JOptionPane.showMessageDialog(null, "Produk berhasil diperbarui!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-            callback.run();  // Memanggil callback untuk memperbarui tampilan
-            
+            callback.run();
         } else {
             JOptionPane.showMessageDialog(null, "Gagal memperbarui produk!", "Kesalahan", JOptionPane.ERROR_MESSAGE);
         }
     }
+}
+
+// Method untuk membatasi panjang input di JTextField
+private void setMaxLength(JTextField textField, int maxLength) {
+    PlainDocument doc = new PlainDocument();
+    doc.setDocumentFilter(new DocumentFilter() {
+        @Override
+        public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+            if (fb.getDocument().getLength() + string.length() <= maxLength) {
+                super.insertString(fb, offset, string, attr);
+            }
+        }
+
+        @Override
+        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+            if (fb.getDocument().getLength() - length + text.length() <= maxLength) {
+                super.replace(fb, offset, length, text, attrs);
+            }
+        }
+    });
+    textField.setDocument(doc);
 }
 
 
@@ -264,7 +291,6 @@ private void handleDelete(Produk produk) {
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         searchBTNActionPerformed = new javax.swing.JButton();
         searchTXT = new javax.swing.JTextField();
@@ -272,9 +298,7 @@ private void handleDelete(Produk produk) {
         jScrollPane = new javax.swing.JScrollPane();
 
         jPanel4.setBackground(new java.awt.Color(51, 153, 255));
-
-        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        jLabel1.setText("Daftar Produk Pengguna");
+        jPanel4.setPreferredSize(new java.awt.Dimension(363, 108));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/android/assets/add_icon.png"))); // NOI18N
         jButton1.setBorderPainted(false);
@@ -305,10 +329,6 @@ private void handleDelete(Produk produk) {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(searchTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -320,15 +340,13 @@ private void handleDelete(Produk produk) {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(searchBTNActionPerformed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(searchTXT))
-                .addContainerGap(20, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(45, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addComponent(searchBTNActionPerformed)
+                    .addComponent(searchTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout contentPanelLayout = new javax.swing.GroupLayout(contentPanel);
@@ -339,25 +357,23 @@ private void handleDelete(Produk produk) {
         );
         contentPanelLayout.setVerticalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(contentPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 68, Short.MAX_VALUE))
+            .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -387,7 +403,6 @@ private void handleDelete(Produk produk) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contentPanel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JButton searchBTNActionPerformed;

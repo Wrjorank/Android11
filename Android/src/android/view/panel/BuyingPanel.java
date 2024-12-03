@@ -99,13 +99,12 @@ public class BuyingPanel extends javax.swing.JPanel {
             JPanel produkPanel = new JPanel(new BorderLayout());
             produkPanel.setBackground(Color.WHITE);
             produkPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-            produkPanel.setPreferredSize(new Dimension(365, 110));
-            produkPanel.setMaximumSize(new Dimension(365, 110));
+            produkPanel.setPreferredSize(new Dimension(365, 130));
+            produkPanel.setMaximumSize(new Dimension(365, 130));
             
             JLabel lblGambar = new JLabel();
-            lblGambar.setPreferredSize(new Dimension(100, 100)); // Set image size
+            lblGambar.setPreferredSize(new Dimension(100, 125)); // Set image size
             lblGambar.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-
             ProdukModel.tampilkanGambar(produk1.getidBarang(), lblGambar);
 
             JLabel lblproduk = new JLabel("#" + produk1.getidBarang() + " " + produk1.getnamaBarang());
