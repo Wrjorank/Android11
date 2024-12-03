@@ -28,6 +28,7 @@ public class RegisterForm extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setFocusable(true);
         this.requestFocusInWindow();
+        this.setResizable(false);
     }
 
     /**

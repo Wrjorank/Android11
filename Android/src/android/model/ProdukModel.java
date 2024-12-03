@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 import static javax.swing.text.html.HTML.Attribute.ID;
 
 /**
@@ -401,37 +402,38 @@ public static String getGambarPathById(int idBarang) {
     return null; // Jika tidak ditemukan, kembalikan null
 }
 
- public static void tampilkanGambar(int idBarang, JLabel label) {
-        String query = "SELECT gambar FROM produk WHERE ID_produk = ?";
-        
-        try (java.sql.Connection conn = DBUtil.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+public static void tampilkanGambar(int idBarang, JLabel label) {
+    String query = "SELECT gambar FROM produk WHERE ID_produk = ?";
+    
+    try (java.sql.Connection conn = DBUtil.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            // Set the ID of the product
-            stmt.setInt(1, idBarang);
+        stmt.setInt(1, idBarang);
+        ResultSet rs = stmt.executeQuery();
 
-            // Execute the query to fetch the image data
-            ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            byte[] imageBytes = rs.getBytes("gambar");
+            ImageIcon imageIcon = new ImageIcon(imageBytes);
 
-            if (rs.next()) {
-                // Get the byte array of the image
-                byte[] imageBytes = rs.getBytes("gambar");
+            SwingUtilities.invokeLater(() -> {
+                int labelWidth = label.getWidth();
+                int labelHeight = label.getHeight();
 
-                // Convert the byte array into an ImageIcon
-                ImageIcon imageIcon = new ImageIcon(imageBytes);
-                
-                // Optionally scale the image if necessary
-                Image image = imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
-                label.setIcon(new ImageIcon(image));
-            } else {
-                System.out.println("Gambar tidak ditemukan untuk produk ID: " + idBarang);
-            }
-        } catch (SQLException e) {
-            System.err.println("Error saat mengambil gambar untuk produk ID " + idBarang + ": " + e.getMessage());
-            e.printStackTrace();
+                if (labelWidth == 0 || labelHeight == 0) {
+                    labelWidth = 200;
+                    labelHeight = 200;
+                }
+
+                Image scaledImage = imageIcon.getImage().getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+                label.setIcon(new ImageIcon(scaledImage));
+            });
+        } else {
+            System.out.println("Gambar tidak ditemukan untuk produk ID: " + idBarang);
         }
+    } catch (SQLException e) {
+        System.err.println("Error saat mengambil gambar: " + e.getMessage());
+        e.printStackTrace();
     }
-
-
+}
 
 }

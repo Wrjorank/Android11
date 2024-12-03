@@ -15,7 +15,9 @@ public class AkunPanel extends javax.swing.JFrame {
      */
     public AkunPanel() {
         initComponents();
+        this.setResizable(false);
         this.setLocationRelativeTo(null);
+        
     }
 
     /**

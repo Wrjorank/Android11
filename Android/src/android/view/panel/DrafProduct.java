@@ -65,7 +65,7 @@ public class DrafProduct extends javax.swing.JPanel {
         JPanel produkPanel = new JPanel(new BorderLayout());
         produkPanel.setBackground(Color.WHITE);
         produkPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-        produkPanel.setPreferredSize(new Dimension(365, 130));
+        produkPanel.setPreferredSize(new Dimension(365, 150));
 
         JLabel lblMessage = new JLabel("Tidak ada data tersedia!", SwingConstants.CENTER);
         lblMessage.setFont(new Font("Arial", Font.BOLD, 12));
@@ -84,12 +84,14 @@ public class DrafProduct extends javax.swing.JPanel {
                 JPanel produkPanel = new JPanel(new BorderLayout());
                 produkPanel.setBackground(Color.WHITE);
                 produkPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-                produkPanel.setPreferredSize(new Dimension(365, 130));
-                produkPanel.setMaximumSize(new Dimension(365, 130));
+                produkPanel.setPreferredSize(new Dimension(365, 150));
+                produkPanel.setMaximumSize(new Dimension(365, 150));
 
+                
                 JLabel lblGambar = new JLabel();
-                lblGambar.setPreferredSize(new Dimension(100, 100)); // Set image size
+                lblGambar.setPreferredSize(new Dimension(100, 250)); // Set image size
                 lblGambar.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
                 ProdukModel.tampilkanGambar(produk1.getidBarang(), lblGambar);
 
                 JLabel lblproduk = new JLabel("#" + produk1.getidBarang() + " " + produk1.getnamaBarang());

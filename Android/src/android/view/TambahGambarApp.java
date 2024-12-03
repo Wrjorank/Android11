@@ -20,6 +20,16 @@ public class TambahGambarApp extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 400);
         setLayout(new BorderLayout());
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+         JPanel panel = new JPanel();
+        panel.add(new JLabel("Tombol Close telah dinonaktifkan!"));
+        this.add(panel);
+        this.setResizable(false);
+        this.setResizable(false);
+
+        // Ubah dekorasi JFrame agar tombol Close benar-benar dihapus
+        this.setUndecorated(true); // Hilangkan baris titel dan tombol kontrol (termasuk tombol Close)
+        getRootPane().setWindowDecorationStyle(JRootPane.FRAME); // Kembalikan frame tanpa tombol close
 
         // Tombol untuk memilih gambar
         JButton btnTambahGambar = new JButton("Tambah Gambar");

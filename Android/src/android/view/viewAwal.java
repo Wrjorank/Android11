@@ -18,6 +18,7 @@ public class viewAwal extends javax.swing.JFrame {
     public viewAwal() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     /**
