@@ -95,6 +95,11 @@ public class RegisterForm extends javax.swing.JFrame {
                 jButton_createMouseClicked(evt);
             }
         });
+        jButton_create.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_createActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Nama Belakang   :");
@@ -346,7 +351,7 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_tanggallahirMouseClicked
 
     private void jButton_createMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_createMouseClicked
-            // Ambil data dari form
+ // Ambil data dari form
 String namaDepan = jTextField_namadepan.getText();
 String namaBelakang = jTextField_namabelakang.getText();
 String username = jTextField_username.getText();
@@ -361,6 +366,17 @@ if (namaDepan.isEmpty() || namaBelakang.isEmpty() || username.isEmpty() || passw
     return;
 }
 
+// Validasi apakah username dan password minimal 6 karakter
+if (username.length() < 6) {
+    JOptionPane.showMessageDialog(this, "Username harus memiliki minimal 6 karakter!", "Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+if (password.length() < 6) {
+    JOptionPane.showMessageDialog(this, "Password harus memiliki minimal 6 karakter!", "Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
 // Validasi apakah password dan ulangi password cocok
 if (!password.equals(ulangiPassword)) {
     JOptionPane.showMessageDialog(this, "Password tidak identik!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -369,15 +385,14 @@ if (!password.equals(ulangiPassword)) {
     return;
 }
 
-      // Koneksi ke database
-    String url = "jdbc:mariadb://localhost:3306/proyek_register"; // Nama database
-    String user = "root"; // Sesuaikan dengan username database Anda
-    String pass = "";     // Sesuaikan dengan password database Anda
+// Koneksi ke database
+String url = "jdbc:mariadb://localhost:3306/proyek_register"; // Nama database
+String user = "root"; // Sesuaikan dengan username database Anda
+String pass = "";     // Sesuaikan dengan password database Anda
 
 try (Connection conn = DriverManager.getConnection(url, user, pass)) {
     conn.setAutoCommit(false); // Gunakan transaksi
-  
-    
+
     // Periksa apakah username sudah ada
     String checkSql = "SELECT COUNT(*) FROM register WHERE username = ?";
     try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
@@ -434,6 +449,7 @@ try (Connection conn = DriverManager.getConnection(url, user, pass)) {
     e.printStackTrace();
     JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 }
+
     }//GEN-LAST:event_jButton_createMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -457,6 +473,10 @@ try (Connection conn = DriverManager.getConnection(url, user, pass)) {
         jTextField_tanggallahir.setText("YYYY-MM-DD"); // Kembalikan teks placeholder
     }
     }//GEN-LAST:event_jTextField_tanggallahirFocusLost
+
+    private void jButton_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_createActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_createActionPerformed
 
     /**
      * @param args the command line arguments
