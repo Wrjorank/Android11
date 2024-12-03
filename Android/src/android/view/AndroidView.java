@@ -19,6 +19,7 @@ public class AndroidView extends javax.swing.JFrame {
     public AndroidView() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     /**

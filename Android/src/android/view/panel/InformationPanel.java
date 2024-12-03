@@ -16,6 +16,7 @@ public class InformationPanel extends javax.swing.JFrame {
     public InformationPanel() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     /**
